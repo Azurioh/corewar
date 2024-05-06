@@ -18,5 +18,5 @@ int main(int argc, char **argv)
 {
     if (error_handling(argc) == 84)
         return 84;
-    return corewar(argv);
+    return corewar(argc, argv);
 }

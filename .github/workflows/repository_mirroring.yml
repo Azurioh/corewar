@@ -64,14 +64,15 @@ jobs:
 
         - name: "Clean the repository"
           run: make clean
-
         - name: "Check if all binaries are present"
           run: |
             OLDIFS=$IFS
             IFS=","
             for binary in $EXECUTABLES;
             do
-              ./$binary
+              if [[ ! -f ./$binary ]]; then
+                exit 1
+              fi
             done
             IFS=$OLDIFS
 

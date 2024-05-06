@@ -19,9 +19,14 @@ typedef struct corewar_s {
     char *memory;
     char *registers;
     robot_t **robots;
+    int nbr_cycle;
+    int nbr_robots;
 } corewar_t;
 
 corewar_t *init_corewar(void);
-int corewar(char **argv);
+int corewar(int argc, char **argv);
 int read_file(char *filepath, char **buff);
+int parse_args(int argc, char **argv, corewar_t *corewar);
+int my_str_isnum(char const *str);
+int is_corfile(char *str);
 #endif
