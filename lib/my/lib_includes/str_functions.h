@@ -105,4 +105,5 @@ int get_number_of_occurences(char const *str, char character);
 ** @return Return a new string
 */
 char *remove_char_in_str(char *str, int index);
+char *my_strndup(char *str, int n);
 #endif /* !STR_FUNCTIONS_H_ */

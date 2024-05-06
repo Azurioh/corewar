@@ -9,10 +9,13 @@
     #define ROBOT_H
 
 typedef struct instruction_s {
-
+    char *mnemonique;
+    int nbr_cycles;
 } instruction_t;
 
 typedef struct robot_s {
+    unsigned int nb_player;
+    char *name;
     char *binary_code;
     char *registers;
     unsigned int size;
@@ -23,4 +26,6 @@ typedef struct robot_s {
     instruction_t **instructions;
 } robot_t;
 
+robot_t *init_robot(void);
+robot_t *create_robot(char *filepath);
 #endif

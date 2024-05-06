@@ -30,5 +30,7 @@ corewar_t *init_corewar(void)
         return NULL;
     }
     corewar->memory = allocate_memory();
+    corewar->registers = NULL;
+    corewar->robots = NULL;
     return corewar;
 }

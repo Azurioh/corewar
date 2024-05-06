@@ -11,6 +11,9 @@
     #include "op.h"
     #include "robot.h"
     #include <stdlib.h>
+    #include <sys/stat.h>
+    #include <fcntl.h>
+    #include <unistd.h>
 
 typedef struct corewar_s {
     char *memory;
@@ -19,5 +22,6 @@ typedef struct corewar_s {
 } corewar_t;
 
 corewar_t *init_corewar(void);
-int corewar(void);
+int corewar(char **argv);
+int read_file(char *filepath, char **buff);
 #endif

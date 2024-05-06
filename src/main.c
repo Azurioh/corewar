@@ -7,7 +7,16 @@
 
 #include "../include/corewar.h"
 
-int main(void)
+int error_handling(int argc)
 {
-    return corewar();
+    if (argc < 2)
+        return 84;
+    return 0;
+}
+
+int main(int argc, char **argv)
+{
+    if (error_handling(argc) == 84)
+        return 84;
+    return corewar(argv);
 }
