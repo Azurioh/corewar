@@ -9,9 +9,9 @@
 int get_nbr_cycle(char **argv, int *i, corewar_t *corewar)
 {
     if (argv[*i + 1] != NULL && my_str_isnum(argv[*i + 1]) == 0) {
-        corewar->nbr_cycle = my_getnbr(argv[*i + 1]);
-        if (corewar->nbr_cycle < 1) {
-            my_printf("[-dump]: argument must be greater than one\n");
+        corewar->dump_nbr = my_getnbr(argv[*i + 1]);
+        if (corewar->dump_nbr < 0) {
+            my_printf("[-dump]: argument must be positive\n");
             return 84;
         }
         *i += 1;

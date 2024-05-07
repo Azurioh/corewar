@@ -20,6 +20,7 @@ typedef struct corewar_s {
     char *registers;
     robot_t **robots;
     int nbr_cycle;
+    int dump_nbr;
     int nbr_robots;
 } corewar_t;
 

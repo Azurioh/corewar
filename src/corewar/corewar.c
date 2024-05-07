@@ -27,7 +27,7 @@ int corewar(int argc, char **argv)
     corewar->robots = malloc(sizeof(robot_t *) * 2);
     corewar->robots[0] = create_robot(argv[1]);
     corewar->robots[1] = NULL;
-    my_printf("nbr_cycles: %d, nbr_robots: %d\n", corewar->nbr_cycle,
+    my_printf("dump_nbr: %d, nbr_robots: %d\n", corewar->dump_nbr,
         corewar->nbr_robots);
     return 0;
 }
