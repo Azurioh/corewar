@@ -34,6 +34,6 @@ corewar_t *init_corewar(void)
     corewar->robots = NULL;
     corewar->nbr_cycle = CYCLE_TO_DIE;
     corewar->nbr_robots = 0;
-    corewar->dump_nbr = 0;
+    corewar->dump_nbr = -1;
     return corewar;
 }

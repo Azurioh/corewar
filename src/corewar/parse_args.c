@@ -29,9 +29,17 @@ int parse_loop(char **argv, int *i, corewar_t *corewar)
         return get_nbr_cycle(argv, i, corewar);
     }
     if (is_corfile(argv[*i]) == 0) {
+        if (is_file_exist(argv[*i]) == 1) {
+            my_printf("Can't open %s\n", argv[*i]);
+            return 84;
+        }
         corewar->nbr_robots += 1;
         return 0;
     }
+    if (argv[*i][0] == '-')
+        return 0;
+    if (argv[*i - 1][0] == '-' && my_str_isnum(argv[*i]) == 0)
+        return 0;
     return 84;
 }
 
@@ -45,5 +53,8 @@ int parse_args(int argc, char **argv, corewar_t *corewar)
         my_printf("Number of robots must be between 2 and 4\n");
         return 84;
     }
+    corewar->robots = malloc(sizeof(robot_t *) * (corewar->nbr_robots + 1));
+    if (fill_robots(argv, corewar) == 84)
+        return 84;
     return 0;
 }

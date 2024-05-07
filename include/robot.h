@@ -27,5 +27,5 @@ typedef struct robot_s {
 } robot_t;
 
 robot_t *init_robot(void);
-robot_t *create_robot(char *filepath);
+robot_t *create_robot(char *filepath, int start, int number);
 #endif

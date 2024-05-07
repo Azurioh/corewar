@@ -30,4 +30,6 @@ int read_file(char *filepath, char **buff);
 int parse_args(int argc, char **argv, corewar_t *corewar);
 int my_str_isnum(char const *str);
 int is_corfile(char *str);
+int is_file_exist(char *filepath);
+int fill_robots(char **argv, corewar_t *corewar);
 #endif
