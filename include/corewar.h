@@ -19,6 +19,7 @@ typedef struct corewar_s {
     char *memory;
     char *registers;
     robot_t **robots;
+    robot_t *last_robot_alive;
     int nbr_cycle;
     int dump_nbr;
     int nbr_robots;
@@ -32,4 +33,6 @@ int my_str_isnum(char const *str);
 int is_corfile(char *str);
 int is_file_exist(char *filepath);
 int fill_robots(char **argv, corewar_t *corewar);
+
+void exec_robot_command(robot_t *robot, corewar_t *corewar);
 #endif
