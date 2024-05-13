@@ -19,7 +19,7 @@ int live(corewar_t *corewar, int robot_index)
     robot->nb_cycles_to_wait = op_tab[0].nbr_cycles;
     robot->reading_index += 6;
     index_robot = get_index_robot(corewar->robots, nb_player);
-    corewar->robots[index_robot]->is_alive = 1;
+    corewar->robots[index_robot]->is_alive = true;
     my_printf("The player %d(%s)is alive.", nb_player,
         corewar->robots[index_robot]->name);
     corewar->last_robot_alive = corewar->robots[index_robot];
