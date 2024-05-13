@@ -13,10 +13,11 @@ int live(corewar_t *corewar, int robot_index)
     int index_robot;
     int nb_player;
 
-    number_string = my_strndup(&corewar->memory[0 + 2], 4);
+    number_string = my_strndup(&corewar->memory[robot->reading_index + 2], 4);
     nb_player = my_getnbr(number_string);
     free(number_string);
     robot->nb_cycles_to_wait = op_tab[0].nbr_cycles;
+    robot->reading_index += 6;
     index_robot = get_index_robot(corewar->robots, nb_player);
     corewar->robots[index_robot]->is_alive = 1;
     my_printf("The player %d(%s)is alive.", nb_player,
