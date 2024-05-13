@@ -23,4 +23,7 @@ typedef struct robot_s {
 
 robot_t *create_robot(char *filepath, int start, int number);
 void free_robot(robot_t *robot);
+
+int get_number_of_robots_alive(robot_t **robots);
+int get_number_of_robots_not_dead(robot_t **robots);
 #endif
