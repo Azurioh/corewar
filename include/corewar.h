@@ -37,4 +37,6 @@ int is_file_exist(char *filepath);
 int fill_robots(char **argv, corewar_t *corewar);
 
 void exec_robot_command(robot_t *robot, corewar_t *corewar);
+
+int live(corewar_t *corewar, int robot_index);
 #endif
