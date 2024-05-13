@@ -106,4 +106,5 @@ int get_number_of_occurences(char const *str, char character);
 */
 char *remove_char_in_str(char *str, int index);
 char *my_strndup(char *str, int n);
+char *my_revstr(char *str);
 #endif /* !STR_FUNCTIONS_H_ */

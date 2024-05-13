@@ -37,6 +37,7 @@ int my_str_isnum(char const *str);
 int is_corfile(char *str);
 int is_file_exist(char *filepath);
 int fill_robots(char **argv, corewar_t *corewar);
+char *read_coding_byte(int byte);
 
 int manage_cycles(corewar_t *corewar);
 
