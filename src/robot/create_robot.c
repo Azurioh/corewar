@@ -23,7 +23,8 @@ static bool init_registers(robot_t *robot)
 }
 
 static bool load_robot_informations(robot_t *robot, char *buffer, int start,
-    int number) {
+    int number)
+{
     static unsigned int nb_player = 0;
 
     robot->name = my_strndup(&(buffer[4]), PROG_NAME_LENGTH);
