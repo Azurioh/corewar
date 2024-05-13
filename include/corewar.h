@@ -16,7 +16,7 @@
     #include <sys/stat.h>
     #include <fcntl.h>
     #include <unistd.h>
-    #include <stdbool.h>    
+    #include <stdbool.h>
 
 typedef struct corewar_s {
     char *memory;
