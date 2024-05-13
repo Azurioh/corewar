@@ -21,4 +21,5 @@ int manage_cycles(corewar_t *corewar)
     for (int i = 0; i < corewar->nbr_cycle; i++) {
         exec_robots_instruction(corewar);
     }
+    return 0;
 }

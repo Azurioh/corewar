@@ -57,7 +57,7 @@ int add_robot(char **argv, corewar_t *corewar, int *i, int *index_robot)
             return 84;
         }
     }
-    corewar->robots[*index_robot] = create_robot(argv[1], address, number);
+    corewar->robots[*index_robot] = create_robot(argv[*i], address, number);
     *index_robot += 1;
     return 0;
 }
@@ -66,7 +66,7 @@ int fill_robots(char **argv, corewar_t *corewar)
 {
     int index_robot = 0;
 
-    for (int i = 0; i < corewar->nbr_robots + 1; i++) {
+    for (int i = 0; index_robot < corewar->nbr_robots; i++) {
         if (add_robot(argv, corewar, &i, &index_robot) == 84)
             return 84;
     }
