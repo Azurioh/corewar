@@ -7,25 +7,20 @@
 
 #ifndef ROBOT_H
     #define ROBOT_H
-
-typedef struct instruction_s {
-    char *mnemonique;
-    int nbr_cycles;
-} instruction_t;
+    #include <stdbool.h>
 
 typedef struct robot_s {
     unsigned int nb_player;
     char *name;
-    char *binary_code;
     char *registers;
-    unsigned int size;
-    unsigned int is_alive;
+    bool is_alive;
+    bool is_dead;
     unsigned int start_index_in_memory;
     unsigned int end_index_in_memory;
     unsigned int nb_cycles_to_wait;
-    instruction_t **instructions;
+    unsigned int reading_index;
 } robot_t;
 
-robot_t *init_robot(void);
 robot_t *create_robot(char *filepath, int start, int number);
+void free_robot(robot_t *robot);
 #endif
