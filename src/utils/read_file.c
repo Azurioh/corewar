@@ -11,11 +11,12 @@ int read_file(char *filepath, char **buff)
 {
     struct stat s;
     int fd;
-    int size;
+    size_t size;
 
     fd = open(filepath, O_RDONLY);
     if (fd == -1) {
         my_printf("Can't open %s\n", filepath);
+        free(*buff);
         return fd;
     }
     stat(filepath, &s);
@@ -23,5 +24,5 @@ int read_file(char *filepath, char **buff)
     size = read(fd, *buff, s.st_size);
     (*buff)[size] = '\0';
     close(fd);
-    return size;
+    return (int)size;
 }

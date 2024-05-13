@@ -30,7 +30,6 @@ corewar_t *init_corewar(void)
         return NULL;
     }
     corewar->memory = allocate_memory();
-    corewar->registers = NULL;
     corewar->robots = NULL;
     corewar->nbr_cycle = CYCLE_TO_DIE;
     corewar->nbr_robots = 0;

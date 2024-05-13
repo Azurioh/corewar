@@ -55,4 +55,5 @@ dkms.conf
 *.cor
 *.log
 .vscode
+.idea
 *.s
