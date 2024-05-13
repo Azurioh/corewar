@@ -10,11 +10,11 @@
 static void exec_robots_instruction(corewar_t *corewar)
 {
     for (int i = 0; i < corewar->nbr_robots; i++) {
-        read_instruction(corewar->robots[i], corewar->memory);
+        read_instruction(corewar, corewar->robots[i]);
     }
 }
 
-static bool check_if_program_is_ended(corewar_t *corewar)
+static bool check_if_program_is_not_ended(corewar_t *corewar)
 {
     static int program_started = 0;
     int nb_robots_alive = get_number_of_robots_alive(corewar->robots);
@@ -35,11 +35,23 @@ static bool check_if_program_is_ended(corewar_t *corewar)
     return true;
 }
 
+static void update_state_of_robots(robot_t *robot)
+{
+    if (robot->is_alive == false) {
+        robot->is_dead = true;
+    } else {
+        robot->is_alive = false;
+    }
+}
+
 int manage_cycles(corewar_t *corewar)
 {
-    while (check_if_program_is_ended(corewar) == true) {
+    while (check_if_program_is_not_ended(corewar) == true) {
         for (int i = 0; i < corewar->nbr_cycle; i++) {
             exec_robots_instruction(corewar);
+        }
+        for (int i = 0; i < corewar->nbr_robots; i++) {
+            update_state_of_robots(corewar->robots[i]);
         }
     }
     return 0;
