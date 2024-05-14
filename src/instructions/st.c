@@ -35,7 +35,7 @@ static void move_robot_index_st_command(char *coding_byte, robot_t *robot)
     }
 }
 
-static void store_st_result(unsigned char **memory, int *arguments,
+static void store_st_result(corewar_t *corewar, int *arguments,
     char *coding_byte, robot_t *robot)
 {
     int value;
@@ -66,7 +66,7 @@ void st_instruction(corewar_t *corewar, robot_t *robot)
         free(c_byte);
         return;
     }
-    store_st_result(&corewar->memory, arguments, c_byte, robot);
+    store_st_result(corewar, arguments, c_byte, robot);
     move_robot_index_st_command(c_byte, robot);
     free(arguments);
     free(c_byte);

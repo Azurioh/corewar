@@ -7,7 +7,8 @@
 
 #include "../../include/corewar.h"
 
-static int *parse_ldi_args(char *memory, robot_t *robot, char *coding_byte)
+static int *parse_ldi_args(unsigned char *memory, robot_t *robot,
+    char *coding_byte)
 {
     int *arguments = malloc(sizeof(int) * 4);
     int move = 0;

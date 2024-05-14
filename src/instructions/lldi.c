@@ -7,7 +7,8 @@
 
 #include "../../include/corewar.h"
 
-static int *parse_lldi_args(char *memory, robot_t *robot, char *coding_byte)
+static int *parse_lldi_args(unsigned char *memory, robot_t *robot,
+    char *coding_byte)
 {
     int *arguments = malloc(sizeof(int) * 4);
     int move = 0;
@@ -62,8 +63,8 @@ void lldi_instruction(corewar_t *corewar, robot_t *robot)
         free(c_byte);
         return;
     }
-    result = first_read_ldi(corewar, robot, args);
-    result = second_read_ldi(corewar, robot, result);
+    result = first_read_lldi(corewar, robot, args);
+    result = second_read_lldi(corewar, robot, result);
     robot->registers[0] = result;
     robot->carry = 0;
     if (result == 0) {
