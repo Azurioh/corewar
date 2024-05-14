@@ -53,7 +53,7 @@ static void display_winner(corewar_t *corewar)
     if (!corewar->last_robot_alive) {
         my_printf("No winner !\n");
     } else {
-        my_printf("The player %d(%s) win!\n", 
+        my_printf("The player %d(%s) win!\n",
             corewar->last_robot_alive->nb_player,
             corewar->last_robot_alive->name);
     }
