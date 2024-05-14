@@ -8,7 +8,8 @@
 
 unsigned int get_index_robot(robot_t **robots, unsigned int player_number)
 {
-    for (unsigned int i = 0; robots[i] != NULL; i++) {
+    for (unsigned int i = 0; robots[i] != NULL
+        && robots[i]->is_dead == false; i++) {
         if (robots[i]->nb_player == player_number)
             return i;
     }
