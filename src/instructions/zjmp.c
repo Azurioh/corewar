@@ -21,5 +21,5 @@ void zjmp(corewar_t *corewar, robot_t *robot)
     robot->read_index += value;
     if (robot->read_index > MEM_SIZE)
         robot->read_index -= MEM_SIZE -1;
-        return;
+    return;
 }
