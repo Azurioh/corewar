@@ -17,24 +17,32 @@ static bool check_if_robots_exist(corewar_t *corewar, int index_robot)
     return true;
 }
 
+static void update_live_status(corewar_t *corewar, robot_t *robot,
+    int index_robot)
+{
+    if (corewar->robots[index_robot]->nb_player == robot->nb_player) {
+        robot->is_alive = true;
+        my_printf("The player %d(%s) is alive.\n", robot->nb_player,
+            robot->name);
+    } else {
+        corewar->robots[index_robot]->is_alive = true;
+        my_printf("The player %d(%s) is alive.\n",
+            corewar->robots[index_robot]->nb_player,
+            corewar->robots[index_robot]->name);
+    }
+    corewar->nbr_live++;
+}
+
 void live(corewar_t *corewar, robot_t *robot)
 {
-    char *number_string = NULL;
     int nb_player;
-    char value = get_address_value(corewar->memory, robot->read_index + 1);
     int index_robot;
 
-    number_string = my_strndup(&value, 4);
-    nb_player = my_getnbr(number_string);
-    free(number_string);
+    nb_player = convert_4bytes(corewar->memory, robot->read_index);
     index_robot = get_index_robot(corewar->robots, nb_player);
+    robot->read_index += 5;
     if (check_if_robots_exist(corewar, index_robot) == false) {
         return;
     }
-    robot->read_index += 5;
-    corewar->robots[index_robot]->is_alive = true;
-    my_printf("The player %d(%s)is alive.", nb_player,
-        corewar->robots[index_robot]->name);
-    corewar->last_robot_alive = corewar->robots[index_robot];
-    corewar->nbr_live += 1;
+    update_live_status(corewar, robot, index_robot);
 }
