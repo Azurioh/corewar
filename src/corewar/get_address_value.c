@@ -7,6 +7,21 @@
 
 #include "../../include/corewar.h"
 
+int get_address(int index)
+{
+    if (index >= MEM_SIZE) {
+        while (index >= MEM_SIZE) {
+            index -= MEM_SIZE;
+        }
+    }
+    if (index < 0) {
+        while (index < 0) {
+            index += MEM_SIZE;
+        }
+    }
+    return index;
+}
+
 int get_address_value(char *memory, int index)
 {
     int value;
