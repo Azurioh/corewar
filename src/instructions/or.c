@@ -59,6 +59,10 @@ void or_instruction(corewar_t *corewar, robot_t *robot)
         return;
     }
     result = args[0] | args[1];
+    robot->carry = 0;
+    if (result == 0) {
+        robot->carry = 1;
+    }
     robot->registers[args[2]] = result;
     free(c_byte);
     free(args);
