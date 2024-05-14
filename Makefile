@@ -19,7 +19,9 @@ LIB_OBJS	=	$(shell find lib/my -name '*.o')
 
 CFLAGS	+= -Werror -Wall -Wextra -g
 
-TEST_FLAGS	=	--coverage -lcriterion
+TEST_FLAGS	=	tests/corewar_tests.c	\
+				tests/redirect_all_std.c	\
+				--coverage -lcriterion
 
 all:	$(NAME)
 
@@ -34,15 +36,16 @@ clean:
 	make clean -C lib/my
 	rm -f $(OBJS)
 	rm -f *.vgcore
-	rm -f *.gcno *.gcna
+	rm -f *.gcno *.gcda
 
 fclean:	clean
 	make fclean -C lib/my
 	rm -f $(NAME)
+	rm -f unit_tests
 
 re:	fclean	all
 
-unit_tests:	fclean
+unit_tests:	fclean all
 	gcc -o unit_tests $(SRC_NO_MAIN) $(LIB_OBJS) $(TEST_FLAGS)
 
 tests_run:	unit_tests
