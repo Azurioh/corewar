@@ -24,7 +24,7 @@ static bool check_if_program_is_not_ended(corewar_t *corewar)
     int nb_robots_alive = get_number_of_robots_alive(corewar->robots);
     int nb_robots_not_dead = get_number_of_robots_not_dead(corewar->robots);
 
-    if (nb_robots_alive == 0 && program_started == 1) {
+    if (nb_robots_alive <= 1 && program_started == 1) {
         return false;
     }
     if (program_started == 0) {
@@ -48,6 +48,17 @@ static void update_state_of_robots(robot_t *robot)
     }
 }
 
+static void display_winner(corewar_t *corewar)
+{
+    if (!corewar->last_robot_alive) {
+        my_printf("No winner !\n");
+    } else {
+        my_printf("The player %d(%s) win!\n", 
+            corewar->last_robot_alive->nb_player,
+            corewar->last_robot_alive->name);
+    }
+}
+
 int manage_cycles(corewar_t *corewar)
 {
     int cycle_tot = 0;
@@ -61,5 +72,6 @@ int manage_cycles(corewar_t *corewar)
             update_state_of_robots(corewar->robots[i]);
         }
     }
+    display_winner(corewar);
     return 0;
 }
