@@ -38,6 +38,5 @@ void add(corewar_t *corewar, robot_t *robot)
         corewar->carry = 0;
     }
     robot->read_index += 5;
-    robot->nb_cycles_to_wait = get_operation_info("add").nbr_cycles;
     return;
 }
