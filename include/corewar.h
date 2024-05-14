@@ -42,9 +42,11 @@ int manage_cycles(corewar_t *corewar);
 
 op_t get_operation_info(char *name);
 void read_instruction(corewar_t *corewar, robot_t *robot);
+int get_address(int index);
 int get_address_value(char *memory, int index);
 
 void live(corewar_t *corewar, robot_t *robot);
 void add(corewar_t *corewar, robot_t *robot);
 void sub(corewar_t *corewar, robot_t *robot);
+void st(corewar_t *corewar, robot_t *robot);
 #endif
