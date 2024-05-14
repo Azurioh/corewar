@@ -33,10 +33,10 @@ static void store_st_result(unsigned char *memory, char *arguments,
 {
     if (coding_byte[1] == T_IND) {
         memory[robot->read_index + arguments[1] % IDX_MOD] = arguments[0];
-        robot->read_index += 5;
+        robot->read_index = get_address(robot->read_index + 5);
     } else {
         robot->registers[(int)arguments[1]] = arguments[0];
-        robot->read_index += 4;
+        robot->read_index = get_address(robot->read_index + 4);
     }
 }
 
@@ -47,6 +47,11 @@ void st_instruction(corewar_t *corewar, robot_t *robot)
         robot->read_index);
 
     if (!arguments) {
+        if (c_byte[1] == T_IND) {
+            robot->read_index = get_address(robot->read_index + 5);
+        } else {
+            robot->read_index += get_address(robot->read_index + 4);
+        }
         free(c_byte);
         return;
     }
