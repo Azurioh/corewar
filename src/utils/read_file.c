@@ -20,7 +20,7 @@ int read_file(char *filepath, unsigned char **buff)
         return fd;
     }
     stat(filepath, &s);
-    *buff = malloc(s.st_size);
+    *buff = malloc(s.st_size + 1);
     size = read(fd, *buff, s.st_size);
     (*buff)[size] = '\0';
     close(fd);
