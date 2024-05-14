@@ -9,22 +9,28 @@
 
 void conv_hexa(unsigned int nb, char *str)
 {
-    int rslt;
+    int calcul = nb;
+    int tmp;
+    int j = 0;
 
-    if (nb == 0)
-        return;
-    else {
-        rslt = nb % 16;
-        if (rslt > 9)
-            rslt += 'A' - 58;
-        conv_hexa((nb / 16), str);
-        append(str, rslt + 48);
+    while (calcul != 0) {
+        tmp = calcul % 16;
+        if (tmp < 10) {
+            str[j] = '0' + tmp;
+            j++;
+        } else {
+            str[j] = 'A' + (tmp - 10);
+            j++;
+        }
+        str[j] = '\0';
+        calcul /= 16;
     }
+    return;
 }
 
 void display_hexa(int nb)
 {
-    char *str = my_strdup("");
+    char *str = malloc(sizeof(char) * 100);
 
     if (nb == 0) {
         my_putchar('0');
@@ -33,10 +39,15 @@ void display_hexa(int nb)
         return;
     }
     conv_hexa(nb, str);
-    for (int i = my_strlen(str); i < 2; i++) {
-        my_putchar('0');
+    str = my_revstr(str);
+    if (my_strlen(str) < 2) {
+        for (int i = my_strlen(str); i < 2; i++) {
+            my_putchar('0');
+        }
     }
-    my_putstr(str);
+    for (int i = 0; i < my_strlen(str); i++) {
+        my_putchar(str[i]);
+    }
     return;
 }
 
