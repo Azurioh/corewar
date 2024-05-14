@@ -19,7 +19,7 @@ const instructions_check_t INSTRUCTIONS_LIST[] = {
     { 0x02, NULL },
     { 0x03, NULL },
     { 0x04, &add },
-    { 0x05, NULL },
+    { 0x05, &sub },
     { 0x06, NULL },
     { 0x07, NULL },
     { 0x08, NULL },
