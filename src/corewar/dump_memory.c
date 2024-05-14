@@ -50,7 +50,9 @@ void dump_memory(corewar_t *corewar)
         if (i % 32 == 0)
             my_putchar('\n');
         display_hexa(memory[i]);
-        my_putchar(' ');
+        if ((i + 1) % 32 != 0) {
+            my_putchar(' ');
+        }
     }
     my_putchar('\n');
 }
