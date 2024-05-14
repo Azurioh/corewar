@@ -11,10 +11,11 @@ int convert_4bytes(unsigned char *memory, int index)
 {
     int bitshift = 0;
 
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 3; i++) {
         bitshift += get_address_value(memory,
             index + (i + 1)) << (4 * (4 - i));
     }
+    bitshift += get_address_value(memory, index + 4);
     return bitshift;
 }
 
