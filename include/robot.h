@@ -21,6 +21,7 @@ typedef struct robot_s {
     unsigned int end_index_in_memory;
     unsigned int nb_cycles_to_wait;
     unsigned int read_index;
+    unsigned int carry;
 } robot_t;
 
 robot_t *create_robot(char *filepath, int start, int number);
