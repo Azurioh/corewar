@@ -57,6 +57,5 @@ dkms.conf
 .vscode
 .idea
 *.s
-corewar
 unit_tests*
 .DS_Store
