@@ -108,4 +108,6 @@ char *remove_char_in_str(char *str, int index);
 char *my_strndup(char *str, int n);
 unsigned char *my_uns_strndup(unsigned char *str, int n);
 char *my_revstr(char *str);
+int my_uns_strlen(unsigned char const *str);
+unsigned char *my_uns_strdup(unsigned char const *str);
 #endif /* !STR_FUNCTIONS_H_ */

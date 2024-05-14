@@ -52,6 +52,9 @@ void live(corewar_t *corewar, robot_t *robot);
 void add(corewar_t *corewar, robot_t *robot);
 void sub(corewar_t *corewar, robot_t *robot);
 void st_instruction(corewar_t *corewar, robot_t *robot);
+void fork_instruction(corewar_t *corewar, robot_t *robot);
 
 bool register_is_valid(int register_nb);
+int convert_2bytes(unsigned char *memory, int index);
+int convert_4bytes(unsigned char *memory, int index);
 #endif

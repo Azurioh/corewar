@@ -26,7 +26,7 @@ const instructions_check_t INSTRUCTIONS_LIST[] = {
     { 0x09, NULL },
     { 0x0a, NULL },
     { 0x0b, NULL },
-    { 0x0c, NULL },
+    { 0x0c, &fork_instruction },
     { 0x0d, NULL },
     { 0x0e, NULL },
     { 0x0f, NULL },
