@@ -7,7 +7,8 @@
 
 #include "../../include/corewar.h"
 
-static int *read_or_args(char *memory, robot_t *robot, char *coding_byte)
+static int *read_or_args(unsigned char *memory, robot_t *robot,
+    char *coding_byte)
 {
     int *arguments = malloc(sizeof(int) * 4);
     int move = 0;
@@ -17,7 +18,7 @@ static int *read_or_args(char *memory, robot_t *robot, char *coding_byte)
         free(coding_byte);
         return NULL;
     }
-    move += 2;
+    move++;
     for (int i = 0; i < 2; i++) {
         arguments[i] = read_parameters_with_cbyte(memory, coding_byte[i],
             robot->read_index + move);
@@ -26,7 +27,8 @@ static int *read_or_args(char *memory, robot_t *robot, char *coding_byte)
         move += get_movement_size_with_cbyte(coding_byte[i]);
     }
     arguments[2] = get_address_value(memory, robot->read_index + move);
-    robot->read_index += move + 1;
+    robot->read_index += move + 2;
+    return arguments;
 }
 
 static bool check_or_args_are_valid(int *args, char *c_byte)
