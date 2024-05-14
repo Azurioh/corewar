@@ -24,6 +24,7 @@ int corewar(int argc, char **argv)
     }
     if (parse_args(argc, argv, corewar) == 84)
         return 84;
+    place_robot_in_arena(corewar);
     for (int i = 0; corewar->robots[i] != NULL; i++) {
         my_printf("%s: prog_number: %d, adress_load: %d\n",
             corewar->robots[i]->name, corewar->robots[i]->nb_player,

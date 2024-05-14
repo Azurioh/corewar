@@ -44,6 +44,7 @@ op_t get_operation_info(char *name);
 void read_instruction(corewar_t *corewar, robot_t *robot);
 int get_address(int index);
 int get_address_value(char *memory, int index);
+char *place_robot_in_arena(corewar_t *corewar);
 
 void live(corewar_t *corewar, robot_t *robot);
 void add(corewar_t *corewar, robot_t *robot);

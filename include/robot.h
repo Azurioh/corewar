@@ -15,7 +15,7 @@ typedef struct robot_s {
     char *registers;
     bool is_alive;
     bool is_dead;
-    unsigned int start_index_in_memory;
+    int start_index_in_memory;
     unsigned int end_index_in_memory;
     unsigned int nb_cycles_to_wait;
     unsigned int read_index;
