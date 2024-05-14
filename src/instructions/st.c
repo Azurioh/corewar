@@ -33,7 +33,7 @@ static void store_st_result(char *memory, char *arguments, char *coding_byte,
         memory[robot->read_index + arguments[1] % IDX_MOD] = arguments[0];
         robot->read_index += 5;
     } else {
-        robot->registers[arguments[1]] = arguments[0];
+        robot->registers[(int)arguments[1]] = arguments[0];
         robot->read_index += 4;
     }
 }
