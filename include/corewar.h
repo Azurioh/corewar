@@ -57,9 +57,11 @@ void sub(corewar_t *corewar, robot_t *robot);
 void st_instruction(corewar_t *corewar, robot_t *robot);
 void fork_instruction(corewar_t *corewar, robot_t *robot);
 void lfork_instruction(corewar_t *corewar, robot_t *robot);
+void ld_instruction(corewar_t *corewar, robot_t *robot);
 void and_instruction(corewar_t *corewar, robot_t *robot);
 void or_instruction(corewar_t *corewar, robot_t *robot);
 void xor_instruction(corewar_t *corewar, robot_t *robot);
+void lld_instruction(corewar_t *corewar, robot_t *robot);
 
 bool register_is_valid(int register_nb);
 int convert_2bytes(unsigned char *memory, int index);
