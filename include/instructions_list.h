@@ -30,7 +30,7 @@ const instructions_check_t INSTRUCTIONS_LIST[] = {
     { 0x0d, &lld_instruction },
     { 0x0e, NULL },
     { 0x0f, &lfork_instruction },
-    { 0x10, NULL },
+    { 0x10, &aff },
     { 0x00, NULL },
 };
 
