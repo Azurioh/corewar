@@ -26,6 +26,7 @@ typedef struct corewar_s {
     int nbr_cycle;
     int dump_nbr;
     int nbr_robots;
+    int nbr_live;
 } corewar_t;
 
 corewar_t *init_corewar(void);

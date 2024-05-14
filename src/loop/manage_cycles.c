@@ -11,7 +11,10 @@ static void exec_robots_instruction(corewar_t *corewar)
 {
     for (int i = 0; i < corewar->nbr_robots; i++) {
         read_instruction(corewar, corewar->robots[i]);
+            
     }
+    if (corewar->nbr_live == 40)
+        corewar->nbr_cycle -= CYCLE_DELTA;
 }
 
 static bool check_if_program_is_not_ended(corewar_t *corewar)
