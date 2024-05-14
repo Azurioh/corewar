@@ -7,7 +7,7 @@
 
 #include "../../include/corewar.h"
 
-void regsiter_to_memory(corewar_t *corewar, int index, int value)
+void register_to_memory(corewar_t *corewar, int index, int value)
 {
     int *value_shifted = convert_to_4bytes(value);
 
