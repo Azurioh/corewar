@@ -33,6 +33,7 @@ int corewar(int argc, char **argv)
     }
     my_printf("dump_nbr: %d, nbr_robots: %d\n", corewar->dump_nbr,
         corewar->nbr_robots);
+    manage_cycles(corewar);
     dump_memory(corewar);
     return 0;
 }
