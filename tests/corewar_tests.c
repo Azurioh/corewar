@@ -524,14 +524,200 @@ Test(sub, sub_instruction_with_wrong_registers_8)
     cr_assert_eq(robot->read_index, 30);
 }
 
-// Test(set_instruction, set_instruction_successfull_1)
-// {
-//     corewar_t *corewar = init_corewar();
-//     robot_t *robot = malloc(sizeof(robot_t));
+Test(set_instruction, set_instruction_successfull_1)
+{
+    corewar_t *corewar = init_corewar();
+    robot_t *robot = malloc(sizeof(robot_t));
 
-//     robot->read_index = 0;
-//     robot->registers = malloc(sizeof(int) * REG_NUMBER);
-// }
+    robot->read_index = 0;
+    robot->registers = malloc(sizeof(int) * REG_NUMBER);
+    corewar->memory[1] = 80;
+    corewar->memory[2] = 2;
+    corewar->memory[3] = 3;
+    robot->registers[1] = 25;
+    robot->registers[2] = 50;
+    st_instruction(corewar, robot);
+    cr_assert_eq(robot->registers[1], 25);
+    cr_assert_eq(robot->registers[2], 25);
+    cr_assert_eq(robot->read_index, 4);
+}
+Test(set_instruction, set_instruction_successfull_2)
+{
+    corewar_t *corewar = init_corewar();
+    robot_t *robot = malloc(sizeof(robot_t));
+
+    robot->read_index = 25;
+    robot->registers = malloc(sizeof(int) * REG_NUMBER);
+    corewar->memory[26] = 80;
+    corewar->memory[27] = 4;
+    corewar->memory[28] = 6;
+    robot->registers[5] = 49;
+    robot->registers[3] = 92;
+    st_instruction(corewar, robot);
+    cr_assert_eq(robot->registers[3], 92);
+    cr_assert_eq(robot->registers[5], 92);
+    cr_assert_eq(robot->read_index, 29);
+}
+Test(set_instruction, set_instruction_successfull_3)
+{
+    corewar_t *corewar = init_corewar();
+    robot_t *robot = malloc(sizeof(robot_t));
+    int memory_index;
+
+    robot->read_index = 25;
+    memory_index = get_address(robot->read_index + ((6 << 8) + 10) % IDX_MOD);
+    robot->registers = malloc(sizeof(int) * REG_NUMBER);
+    corewar->memory[26] = 96;
+    corewar->memory[27] = 4;
+    corewar->memory[28] = 6;
+    corewar->memory[29] = 10;
+    robot->registers[3] = 92;
+    st_instruction(corewar, robot);
+    cr_assert_eq(robot->registers[3], 92);
+    cr_assert_eq(corewar->memory[memory_index], 92);
+    cr_assert_eq(robot->read_index, 30);
+}
+Test(set_instruction, set_instruction_successfull_4)
+{
+    corewar_t *corewar = init_corewar();
+    robot_t *robot = malloc(sizeof(robot_t));
+
+    robot->read_index = MEM_SIZE - 3;
+    robot->registers = malloc(sizeof(int) * REG_NUMBER);
+    corewar->memory[MEM_SIZE - 2] = 80;
+    corewar->memory[MEM_SIZE - 1] = 4;
+    corewar->memory[0] = 6;
+    robot->registers[5] = 49;
+    robot->registers[3] = 92;
+    st_instruction(corewar, robot);
+    cr_assert_eq(robot->registers[3], 92);
+    cr_assert_eq(robot->registers[5], 92);
+    cr_assert_eq(robot->read_index, 1);
+}
+Test(set_instruction, set_instruction_successfull_5)
+{
+    corewar_t *corewar = init_corewar();
+    robot_t *robot = malloc(sizeof(robot_t));
+    int memory_index;
+
+    robot->read_index = MEM_SIZE - 2;
+    memory_index = get_address(robot->read_index + ((18 << 8) + 25) % IDX_MOD);
+    robot->registers = malloc(sizeof(int) * REG_NUMBER);
+    corewar->memory[MEM_SIZE - 1] = 96;
+    corewar->memory[0] = 4;
+    corewar->memory[1] = 18;
+    corewar->memory[2] = 25;
+    robot->registers[3] = 20;
+    st_instruction(corewar, robot);
+    cr_assert_eq(robot->registers[3], 20);
+    cr_assert_eq(corewar->memory[memory_index], 20);
+    cr_assert_eq(robot->read_index, 3);
+}
+Test(set_instruction, set_instruction_with_wrong_register_1)
+{
+    corewar_t *corewar = init_corewar();
+    robot_t *robot = malloc(sizeof(robot_t));
+
+    robot->read_index = MEM_SIZE - 3;
+    robot->registers = malloc(sizeof(int) * REG_NUMBER);
+    corewar->memory[MEM_SIZE - 2] = 80;
+    corewar->memory[MEM_SIZE - 1] = 0;
+    corewar->memory[0] = 6;
+    robot->registers[5] = 49;
+    robot->registers[3] = 92;
+    st_instruction(corewar, robot);
+    cr_assert_eq(robot->registers[3], 92);
+    cr_assert_eq(robot->registers[5], 49);
+    cr_assert_eq(robot->read_index, 1);
+}
+Test(set_instruction, set_instruction_with_wrong_register_2)
+{
+    corewar_t *corewar = init_corewar();
+    robot_t *robot = malloc(sizeof(robot_t));
+
+    robot->read_index = MEM_SIZE - 3;
+    robot->registers = malloc(sizeof(int) * REG_NUMBER);
+    corewar->memory[MEM_SIZE - 2] = 80;
+    corewar->memory[MEM_SIZE - 1] = 1;
+    corewar->memory[0] = 0;
+    robot->registers[5] = 49;
+    robot->registers[3] = 92;
+    st_instruction(corewar, robot);
+    cr_assert_eq(robot->registers[3], 92);
+    cr_assert_eq(robot->registers[5], 49);
+    cr_assert_eq(robot->read_index, 1);
+}
+Test(set_instruction, set_instruction_with_wrong_register_3)
+{
+    corewar_t *corewar = init_corewar();
+    robot_t *robot = malloc(sizeof(robot_t));
+
+    robot->read_index = MEM_SIZE - 3;
+    robot->registers = malloc(sizeof(int) * REG_NUMBER);
+    corewar->memory[MEM_SIZE - 2] = 80;
+    corewar->memory[MEM_SIZE - 1] = 18;
+    corewar->memory[0] = 1;
+    robot->registers[5] = 49;
+    robot->registers[3] = 92;
+    st_instruction(corewar, robot);
+    cr_assert_eq(robot->registers[3], 92);
+    cr_assert_eq(robot->registers[5], 49);
+    cr_assert_eq(robot->read_index, 1);
+}
+Test(set_instruction, set_instruction_with_wrong_register_4)
+{
+    corewar_t *corewar = init_corewar();
+    robot_t *robot = malloc(sizeof(robot_t));
+
+    robot->read_index = MEM_SIZE - 3;
+    robot->registers = malloc(sizeof(int) * REG_NUMBER);
+    corewar->memory[MEM_SIZE - 2] = 80;
+    corewar->memory[MEM_SIZE - 1] = 1;
+    corewar->memory[0] = 25;
+    robot->registers[5] = 49;
+    robot->registers[3] = 92;
+    st_instruction(corewar, robot);
+    cr_assert_eq(robot->registers[3], 92);
+    cr_assert_eq(robot->registers[5], 49);
+    cr_assert_eq(robot->read_index, 1);
+}
+Test(set_instruction, set_instruction_with_wrong_register_5)
+{
+    corewar_t *corewar = init_corewar();
+    robot_t *robot = malloc(sizeof(robot_t));
+
+    robot->read_index = MEM_SIZE - 3;
+    robot->registers = malloc(sizeof(int) * REG_NUMBER);
+    corewar->memory[MEM_SIZE - 2] = 80;
+    corewar->memory[MEM_SIZE - 1] = 28;
+    corewar->memory[0] = 25;
+    robot->registers[5] = 49;
+    robot->registers[3] = 92;
+    st_instruction(corewar, robot);
+    cr_assert_eq(robot->registers[3], 92);
+    cr_assert_eq(robot->registers[5], 49);
+    cr_assert_eq(robot->read_index, 1);
+}
+Test(set_instruction, set_instruction_with_wrong_register_6)
+{
+    corewar_t *corewar = init_corewar();
+    robot_t *robot = malloc(sizeof(robot_t));
+    int memory_index;
+
+    robot->read_index = MEM_SIZE - 3;
+    robot->registers = malloc(sizeof(int) * REG_NUMBER);
+    corewar->memory[MEM_SIZE - 2] = 96;
+    corewar->memory[MEM_SIZE - 1] = 4;
+    corewar->memory[0] = 25;
+    corewar->memory[1] = 29;
+    robot->registers[3] = 92;
+    memory_index = get_address(robot->read_index +
+        ((corewar->memory[0] << 8) + (corewar->memory[1])) % IDX_MOD);
+    st_instruction(corewar, robot);
+    cr_assert_eq(robot->registers[3], 92);
+    cr_assert_eq(corewar->memory[memory_index], 92);
+    cr_assert_eq(robot->read_index, 2);
+}
 
 // Test(live, live_instruction_successfull_1, .init = redirect_all_std)
 // {
