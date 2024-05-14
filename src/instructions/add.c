@@ -29,7 +29,7 @@ void add(corewar_t *corewar, robot_t *robot)
     int result = 0;
 
     if (check_if_add_registers_are_valid(reg1, reg2, reg3) == true) {
-        result = robot->registers[reg1 - 1] + robot->registers[reg2];
+        result = robot->registers[reg1 - 1] + robot->registers[reg2 - 1];
         robot->registers[reg3 - 1] = result;
     }
     if (result == 0) {
