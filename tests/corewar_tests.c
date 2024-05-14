@@ -16,7 +16,7 @@ Test (add, add_instrcution_successfull_1)
     robot_t *robot = malloc(sizeof(robot_t));
 
     robot->read_index = 0;
-    robot->registers = malloc(sizeof(char) * REG_SIZE);
+    robot->registers = malloc(sizeof(int) * REG_NUMBER);
     corewar->memory[2] = 1;
     corewar->memory[3] = 2;
     corewar->memory[4] = 3;
@@ -35,7 +35,7 @@ Test (add, add_instruction_successfull_2)
     robot_t *robot = malloc(sizeof(robot_t));
 
     robot->read_index = 25;
-    robot->registers = malloc(sizeof(char) * REG_SIZE);
+    robot->registers = malloc(sizeof(int) * REG_NUMBER);
     corewar->memory[27] = 5;
     corewar->memory[28] = 8;
     corewar->memory[29] = 3;
@@ -54,7 +54,7 @@ Test(add, add_instrctuion_successfull_3)
     robot_t *robot = malloc(sizeof(robot_t));
 
     robot->read_index = 58;
-    robot->registers = malloc(sizeof(char) * REG_SIZE);
+    robot->registers = malloc(sizeof(int) * REG_NUMBER);
     corewar->memory[60] = 3;
     corewar->memory[61] = 3;
     corewar->memory[62] = 2;
@@ -71,7 +71,7 @@ Test(add, add_instruction_successfull_edit_carry_1)
     robot_t *robot = malloc(sizeof(robot_t));
 
     robot->read_index = 0;
-    robot->registers = malloc(sizeof(char) * REG_SIZE);
+    robot->registers = malloc(sizeof(int) * REG_NUMBER);
     corewar->memory[2] = 1;
     corewar->memory[3] = 2;
     corewar->memory[4] = 3;
@@ -90,7 +90,7 @@ Test(add, add_instruction_successfull_edit_carry_2)
     robot_t *robot = malloc(sizeof(robot_t));
 
     robot->read_index = 25;
-    robot->registers = malloc(sizeof(char) * REG_SIZE);
+    robot->registers = malloc(sizeof(int) * REG_NUMBER);
     corewar->memory[27] = 5;
     corewar->memory[28] = 8;
     corewar->memory[29] = 3;
@@ -102,6 +102,7 @@ Test(add, add_instruction_successfull_edit_carry_2)
     cr_assert_eq(robot->registers[2], 0);
     cr_assert_eq(robot->read_index, 30);
     cr_assert_eq(corewar->carry, 1);
+
 }
 Test(add, add_instruction_with_wrong_registers_1)
 {
@@ -109,7 +110,7 @@ Test(add, add_instruction_with_wrong_registers_1)
     robot_t *robot = malloc(sizeof(robot_t));
 
     robot->read_index = 25;
-    robot->registers = malloc(sizeof(char) * REG_SIZE);
+    robot->registers = malloc(sizeof(int) * REG_NUMBER);
     corewar->memory[27] = 5;
     corewar->memory[28] = 8;
     corewar->memory[29] = 0;
@@ -129,7 +130,7 @@ Test(add, add_instruction_with_wrong_registers_2)
     robot_t *robot = malloc(sizeof(robot_t));
 
     robot->read_index = 25;
-    robot->registers = malloc(sizeof(char) * REG_SIZE);
+    robot->registers = malloc(sizeof(int) * REG_NUMBER);
     corewar->memory[27] = 5;
     corewar->memory[28] = 18;
     corewar->memory[29] = 7;
