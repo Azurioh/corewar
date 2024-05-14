@@ -33,6 +33,7 @@ static bool load_robot_informations(robot_t *robot, char *buffer, int start,
     if (init_registers(robot) == false)
         return false;
     robot->start_index_in_memory = start;
+    robot->read_index = start;
     robot->is_alive = false;
     robot->is_dead = false;
     if (number != -1) {
