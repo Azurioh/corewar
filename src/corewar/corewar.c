@@ -6,6 +6,7 @@
 */
 
 #include "../../include/corewar.h"
+#include <stdio.h>
 
 int my_putcorefile(char *buffer, int size)
 {
@@ -13,6 +14,19 @@ int my_putcorefile(char *buffer, int size)
         my_printf("%x\n", buffer[i]);
     }
     return 0;
+}
+
+void dump_memory(corewar_t *corewar)
+{
+    char unsigned *memory = corewar->memory;
+
+    if (memory == NULL)
+        return;
+    for (int i = 0; i < MEM_SIZE; i++) {
+        if (i % 32 == 0)
+            my_putchar('\n');
+        my_printf("%X ", memory[i]);
+    }
 }
 
 int corewar(int argc, char **argv)
@@ -32,5 +46,6 @@ int corewar(int argc, char **argv)
     }
     my_printf("dump_nbr: %d, nbr_robots: %d\n", corewar->dump_nbr,
         corewar->nbr_robots);
+    dump_memory(corewar);
     return 0;
 }

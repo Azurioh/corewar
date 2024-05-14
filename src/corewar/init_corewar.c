@@ -7,9 +7,9 @@
 
 #include "../../include/corewar.h"
 
-static char *allocate_memory(void)
+static unsigned char *allocate_memory(void)
 {
-    char *memory_arena = malloc(sizeof(char) * MEM_SIZE);
+    char unsigned *memory_arena = malloc(sizeof(unsigned char) * MEM_SIZE);
 
     if (!memory_arena) {
         my_puterr("allocate_memory_arena: Memory allocation failed\n");

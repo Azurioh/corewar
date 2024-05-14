@@ -10,9 +10,11 @@
     #include <stdbool.h>
 
 typedef struct robot_s {
+    unsigned char *program;
+    unsigned int prog_size;
     unsigned int nb_player;
-    char *name;
     int *registers;
+    unsigned char *name;
     bool is_alive;
     bool is_dead;
     int start_index_in_memory;

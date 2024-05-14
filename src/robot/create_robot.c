@@ -22,12 +22,14 @@ static bool init_registers(robot_t *robot)
     return true;
 }
 
-static bool load_robot_informations(robot_t *robot, char *buffer, int start,
-    int number)
+static bool load_robot_informations(robot_t *robot, char unsigned *buffer,
+    int start, int number)
 {
     static unsigned int nb_player = 0;
 
-    robot->name = my_strndup(&(buffer[4]), PROG_NAME_LENGTH);
+    robot->name = my_uns_strndup(&(buffer[4]), PROG_NAME_LENGTH);
+    robot->program = my_uns_strndup(&(buffer[COMMENT_LENGTH + PROG_NAME_LENGTH
+        + 16]), robot->prog_size);
     if (robot->name == false)
         return false;
     if (init_registers(robot) == false)
@@ -48,15 +50,18 @@ static bool load_robot_informations(robot_t *robot, char *buffer, int start,
 robot_t *create_robot(char *filepath, int start, int number)
 {
     robot_t *robot = malloc(sizeof(robot_t));
-    char *buffer = NULL;
+    unsigned char *buffer = NULL;
+    int size = 0;
 
     if (!robot) {
         return NULL;
     }
-    if (read_file(filepath, &buffer) == -1) {
+    size = read_file(filepath, &buffer);
+    if (size == -1) {
         free_robot(robot);
         return NULL;
-    }
+    } else
+        robot->prog_size = size - (COMMENT_LENGTH + PROG_NAME_LENGTH + 15);
     if (load_robot_informations(robot, buffer, start, number) == false) {
         free_robot(robot);
         return NULL;
