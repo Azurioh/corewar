@@ -42,17 +42,16 @@ static void insert_new_robots_in_corewar(corewar_t *corewar, robot_t *robot)
 {
     robot_t **new_robots_list;
 
-    corewar->nbr_robots++;
-    new_robots_list = malloc(sizeof(robot_t *) * (corewar->nbr_robots + 1));
+    new_robots_list = malloc(sizeof(robot_t *) * (corewar->nbr_robots + 2));
     if (!new_robots_list) {
-        corewar->nbr_robots--;
         return;
     }
-    for (int i = 0; i < corewar->nbr_robots - 1; i++) {
+    for (int i = 0; i < corewar->nbr_robots; i++) {
         new_robots_list[i] = corewar->robots[i];
     }
-    new_robots_list[corewar->nbr_robots - 1] = robot;
-    new_robots_list[corewar->nbr_robots] = NULL;
+    new_robots_list[corewar->nbr_robots] = robot;
+    new_robots_list[corewar->nbr_robots + 1] = NULL;
+    corewar->nbr_robots++;
     free(corewar->robots);
     corewar->robots = new_robots_list;
 }
