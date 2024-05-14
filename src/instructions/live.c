@@ -15,7 +15,7 @@ void live(corewar_t *corewar, robot_t *robot)
     nb_player = my_getnbr(number_string);
     free(number_string);
     robot->nb_cycles_to_wait = get_operation_info("live").nbr_cycles;
-    robot->reading_index += 6;
+    robot->reading_index += 5;
     robot->is_alive = true;
     my_printf("The player %d(%s)is alive.", nb_player, robot->name);
     corewar->last_robot_alive = robot;
