@@ -31,12 +31,12 @@ void add(corewar_t *corewar, robot_t *robot)
     if (check_if_add_registers_are_valid(reg1, reg2, reg3) == true) {
         result = robot->registers[reg1 - 1] + robot->registers[reg2 - 1];
         robot->registers[reg3 - 1] = result;
+        if (result == 0) {
+            corewar->carry = 1;
+        } else {
+            corewar->carry = 0;
+        }
     }
-    if (result == 0) {
-        corewar->carry = 1;
-    } else {
-        corewar->carry = 0;
-    }
-    robot->read_index += 5;
+    robot->read_index = get_address(robot->read_index + 5);
     return;
 }
