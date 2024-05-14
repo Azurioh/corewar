@@ -21,7 +21,7 @@ void read_instruction(corewar_t *corewar, robot_t *robot)
         return;
     }
     for (int i = 0; INSTRUCTIONS_LIST[i].id != 0; i++) {
-        if (corewar->memory[robot->reading_index] == INSTRUCTIONS_LIST[i].id) {
+        if (corewar->memory[robot->read_index] == INSTRUCTIONS_LIST[i].id) {
             INSTRUCTIONS_LIST[i].function(corewar, robot);
             return;
         }
