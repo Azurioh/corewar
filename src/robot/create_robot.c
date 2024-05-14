@@ -39,12 +39,11 @@ static bool load_robot_informations(robot_t *robot, char unsigned *buffer,
     robot->is_alive = false;
     robot->is_dead = false;
     robot->carry = 1;
-    if (number != -1) {
-        robot->nb_player = number;
-    } else {
+    if (number == -1) {
         robot->nb_player = nb_player;
         nb_player++;
-    }
+    } else
+        robot->nb_player = number;
     return true;
 }
 
