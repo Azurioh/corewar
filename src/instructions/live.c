@@ -36,4 +36,5 @@ void live(corewar_t *corewar, robot_t *robot)
     my_printf("The player %d(%s)is alive.", nb_player,
         corewar->robots[index_robot]->name);
     corewar->last_robot_alive = corewar->robots[index_robot];
+    corewar->nbr_live += 1;
 }
