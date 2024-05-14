@@ -63,6 +63,7 @@ void or_instruction(corewar_t *corewar, robot_t *robot);
 void xor_instruction(corewar_t *corewar, robot_t *robot);
 void lld_instruction(corewar_t *corewar, robot_t *robot);
 void aff(corewar_t *corewar, robot_t *robot);
+void zjmp(corewar_t *corewar, robot_t *robot);
 
 bool register_is_valid(int register_nb);
 int convert_2bytes(unsigned char *memory, int index);

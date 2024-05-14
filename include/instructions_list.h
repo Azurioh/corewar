@@ -23,7 +23,7 @@ const instructions_check_t INSTRUCTIONS_LIST[] = {
     { 0x06, &and_instruction },
     { 0x07, &or_instruction },
     { 0x08, &xor_instruction },
-    { 0x09, NULL },
+    { 0x09, &zjmp },
     { 0x0a, NULL },
     { 0x0b, NULL },
     { 0x0c, &fork_instruction },
