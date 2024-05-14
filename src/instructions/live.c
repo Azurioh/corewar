@@ -6,6 +6,17 @@
 */
 #include "../../include/corewar.h"
 
+static bool check_if_robots_exist(corewar_t *corewar, int index_robot)
+{
+    if (index_robot < 0 || index_robot > corewar->nbr_robots) {
+        return false;
+    }
+    if (corewar->robots[index_robot]->is_dead == true) {
+        return false;
+    }
+    return true;
+}
+
 void live(corewar_t *corewar, robot_t *robot)
 {
     char *number_string = NULL;
@@ -17,7 +28,9 @@ void live(corewar_t *corewar, robot_t *robot)
     nb_player = my_getnbr(number_string);
     free(number_string);
     index_robot = get_index_robot(corewar->robots, nb_player);
-    robot->nb_cycles_to_wait = get_operation_info("live").nbr_cycles;
+    if (check_if_robots_exist(corewar, index_robot) == false) {
+        return;
+    }
     robot->read_index += 5;
     corewar->robots[index_robot]->is_alive = true;
     my_printf("The player %d(%s)is alive.", nb_player,
