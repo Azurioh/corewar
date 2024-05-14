@@ -56,6 +56,7 @@ void add(corewar_t *corewar, robot_t *robot);
 void sub(corewar_t *corewar, robot_t *robot);
 void st_instruction(corewar_t *corewar, robot_t *robot);
 void fork_instruction(corewar_t *corewar, robot_t *robot);
+void lfork_instruction(corewar_t *corewar, robot_t *robot);
 void and_instruction(corewar_t *corewar, robot_t *robot);
 void or_instruction(corewar_t *corewar, robot_t *robot);
 void xor_instruction(corewar_t *corewar, robot_t *robot);
