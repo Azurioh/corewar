@@ -38,6 +38,7 @@ static bool load_robot_informations(robot_t *robot, char unsigned *buffer,
     robot->read_index = start;
     robot->is_alive = false;
     robot->is_dead = false;
+    robot->carry = 1;
     if (number != -1) {
         robot->nb_player = number;
     } else {

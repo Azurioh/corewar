@@ -40,6 +40,7 @@ int fill_robots(char **argv, corewar_t *corewar);
 char *read_coding_byte(int byte);
 
 int manage_cycles(corewar_t *corewar);
+void dump_memory(corewar_t *corewar);
 
 op_t get_operation_info(char *name);
 void read_instruction(corewar_t *corewar, robot_t *robot);

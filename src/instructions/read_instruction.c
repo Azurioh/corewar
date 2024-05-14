@@ -13,7 +13,7 @@ static void update_robot_cooldown(int index, robot_t *robot)
     char *LIST_OF_COMMANDS[] = { "live", "ld", "st", "add", "sub", "and",
         "or", "xor", "zjmp", "ldi", "sti", "fork", "lld", "lldi", "lfork",
         "aff"};
-    char *command_name = LIST_OF_COMMANDS[index - 1];
+    char *command_name = LIST_OF_COMMANDS[index];
     int cooldown = get_operation_info(command_name).nbr_cycles;
 
     robot->nb_cycles_to_wait = cooldown;
