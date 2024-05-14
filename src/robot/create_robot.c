@@ -8,7 +8,7 @@
 
 static bool init_registers(robot_t *robot)
 {
-    char *registers = malloc(sizeof(char) * REG_NUMBER);
+    int *registers = malloc(sizeof(unsigned char) * REG_NUMBER);
 
     if (!registers) {
         my_puterr("init_registers: Memory allocation failed\n");
