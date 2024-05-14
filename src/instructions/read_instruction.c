@@ -8,6 +8,17 @@
 #include "../../include/corewar.h"
 #include "../../include/instructions_list.h"
 
+static void update_robot_cooldown(int index, robot_t *robot)
+{
+    char *LIST_OF_COMMANDS[] = { "live", "ld", "st", "add", "sub", "and",
+        "or", "xor", "zjmp", "ldi", "sti", "fork", "lld", "lldi", "lfork",
+        "aff"};
+    char *command_name = LIST_OF_COMMANDS[index - 1];
+    int cooldown = get_operation_info(command_name).nbr_cycles;
+
+    robot->nb_cycles_to_wait = cooldown;
+}
+
 void read_instruction(corewar_t *corewar, robot_t *robot)
 {
     if (!corewar || !robot) {
@@ -23,6 +34,7 @@ void read_instruction(corewar_t *corewar, robot_t *robot)
     for (int i = 0; INSTRUCTIONS_LIST[i].id != 0; i++) {
         if (corewar->memory[robot->read_index] == INSTRUCTIONS_LIST[i].id) {
             INSTRUCTIONS_LIST[i].function(corewar, robot);
+            update_robot_cooldown(i, robot);
             return;
         }
     }
