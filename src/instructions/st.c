@@ -45,8 +45,8 @@ static void store_st_result(unsigned char **memory, int *arguments,
     }
     value = robot->registers[(int)arguments[0] - 1];
     if (coding_byte[1] == T_IND) {
-        (*memory)[get_address(robot->read_index + (int)arguments[1] % IDX_MOD)]
-            = value;
+        register_to_memory(corewar,
+            robot->read_index + (int)arguments[1] % IDX_MOD, value);
     } else {
         if (register_is_valid((int)arguments[1]) == false) {
             return;
