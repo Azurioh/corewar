@@ -24,11 +24,13 @@ static void update_live_status(corewar_t *corewar, robot_t *robot,
         robot->is_alive = true;
         my_printf("The player %d(%s) is alive.\n", robot->nb_player,
             robot->name);
+        corewar->last_robot_alive = robot;
     } else {
         corewar->robots[index_robot]->is_alive = true;
         my_printf("The player %d(%s) is alive.\n",
             corewar->robots[index_robot]->nb_player,
             corewar->robots[index_robot]->name);
+        corewar->last_robot_alive = corewar->robots[index_robot];
     }
     corewar->nbr_live++;
 }
