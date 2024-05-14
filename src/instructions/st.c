@@ -38,10 +38,11 @@ static void store_st_result(char *memory, char *arguments, char *coding_byte,
     }
 }
 
-void st(corewar_t *corewar, robot_t *robot)
+void st_instruction(corewar_t *corewar, robot_t *robot)
 {
     char *c_byte = read_coding_byte(corewar->memory[robot->read_index + 1]);
-    char *arguments = parse_st_args(corewar->memory, c_byte, robot->read_index);
+    char *arguments = parse_st_args(corewar->memory, c_byte,
+        robot->read_index);
 
     if (!arguments) {
         free(c_byte);

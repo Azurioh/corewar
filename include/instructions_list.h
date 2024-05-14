@@ -17,7 +17,7 @@ typedef struct instructions_check_s {
 const instructions_check_t INSTRUCTIONS_LIST[] = {
     { 0x01, &live },
     { 0x02, NULL },
-    { 0x03, &st },
+    { 0x03, &st_instruction },
     { 0x04, &add },
     { 0x05, &sub },
     { 0x06, NULL },
