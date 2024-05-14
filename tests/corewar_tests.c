@@ -779,6 +779,116 @@ Test(fork_instruction, fork_instruction_successfull_2)
     cr_assert_not_null(corewar->robots[4]);
 }
 
+Test(live, live_instruction_successfull_1)
+{
+    corewar_t *corewar = init_corewar();
+    robot_t **list_robots = malloc(sizeof(robot_t *) * 2);
+    robot_t *robot = malloc(sizeof(robot_t));
+
+    robot->name = (unsigned char *)"Nom du robot";
+    robot->nb_player = 2;
+    robot->is_alive = false;
+    robot->is_dead = false;
+    robot->read_index = 0;
+    list_robots[0] = robot;
+    list_robots[1] = NULL;
+    corewar->nbr_live = 0;
+    corewar->robots = list_robots;
+    corewar->memory[1] = 0;
+    corewar->memory[2] = 0; 
+    corewar->memory[3] = 0; 
+    corewar->memory[4] = 2;
+    live(corewar, robot);
+    cr_assert_eq(robot->is_alive, true);
+    cr_assert_eq(corewar->nbr_live, 1);
+    cr_assert_eq(robot->read_index, 5);
+}
+Test(live, live_instruction_successfull_2)
+{
+    corewar_t *corewar = init_corewar();
+    robot_t **list_robots = malloc(sizeof(robot_t *) * 2);
+    robot_t *robot = malloc(sizeof(robot_t));
+    int registers[] = {2, 0, 0, 19, 0, 0, 14, 0, 0, 12, 0, 0, 0, 18, 0, 0};
+
+    robot->name = (unsigned char *)"Nom du robot";
+    robot->program = (unsigned char *)"";
+    robot->prog_size = 25;
+    robot->nb_player = 2;
+    robot->registers = registers;
+    robot->is_alive = false;
+    robot->is_dead = false;
+    robot->start_index_in_memory = 5;
+    robot->end_index_in_memory = 10;
+    robot->carry = 0;
+    robot->read_index = 0;
+    list_robots[0] = robot;
+    list_robots[1] = NULL;
+    corewar->nbr_live = 0;
+    corewar->robots = list_robots;
+    corewar->memory[1] = 0;
+    corewar->memory[2] = 0; 
+    corewar->memory[3] = 0; 
+    corewar->memory[4] = 3;
+    corewar->nbr_robots = 1;
+    fork_instruction(corewar, robot);
+    corewar->robots[1]->nb_player = 3;
+    live(corewar, robot);
+    cr_assert_eq(robot->is_alive, false);
+    cr_assert_eq(corewar->robots[1]->is_alive, true);
+    cr_assert_eq(corewar->nbr_live, 1);
+    cr_assert_eq(robot->read_index, 5);
+}
+Test(live, live_instruction_with_wrong_id_1)
+{
+    corewar_t *corewar = init_corewar();
+    robot_t **list_robots = malloc(sizeof(robot_t *) * 2);
+    robot_t *robot = malloc(sizeof(robot_t));
+
+    robot->read_index = 0;
+    robot->is_alive = false;
+    list_robots[0] = NULL;
+    corewar->nbr_live = 0;
+    corewar->robots = list_robots;
+    corewar->memory[1] = 0;
+    corewar->memory[2] = 0; 
+    corewar->memory[3] = 0; 
+    corewar->memory[4] = 3;
+    corewar->nbr_robots = 0;
+    live(corewar, robot);
+    cr_assert_eq(robot->is_alive, false);
+}
+Test(live, live_instruction_with_wrong_id_2)
+{
+    corewar_t *corewar = init_corewar();
+    robot_t **list_robots = malloc(sizeof(robot_t *) * 2);
+    robot_t *robot = malloc(sizeof(robot_t));
+    int registers[] = {2, 0, 0, 19, 0, 0, 14, 0, 0, 12, 0, 0, 0, 18, 0, 0};
+
+    robot->name = (unsigned char *)"Nom du robot";
+    robot->program = (unsigned char *)"";
+    robot->prog_size = 25;
+    robot->nb_player = 2;
+    robot->registers = registers;
+    robot->is_alive = false;
+    robot->is_dead = false;
+    robot->start_index_in_memory = 5;
+    robot->end_index_in_memory = 10;
+    robot->carry = 0;
+    robot->read_index = 0;
+    list_robots[0] = robot;
+    list_robots[1] = NULL;
+    corewar->nbr_live = 0;
+    corewar->robots = list_robots;
+    corewar->memory[1] = 0;
+    corewar->memory[2] = 0; 
+    corewar->memory[3] = 0; 
+    corewar->memory[4] = 25;
+    corewar->nbr_robots = 1;
+    fork_instruction(corewar, robot);
+    corewar->robots[1]->nb_player = 3;
+    live(corewar, robot);
+    cr_assert_eq(robot->is_alive, false);
+}
 // Test(live, live_instruction_successfull_1, .init = redirect_all_std)
 // {
 //     corewar_t *corewar = init_corewar();
