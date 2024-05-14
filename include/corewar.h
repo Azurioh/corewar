@@ -64,6 +64,7 @@ void xor_instruction(corewar_t *corewar, robot_t *robot);
 void lld_instruction(corewar_t *corewar, robot_t *robot);
 void ldi_instruction(corewar_t *corewar, robot_t *robot);
 void lldi_instruction(corewar_t *corewar, robot_t *robot);
+void aff(corewar_t *corewar, robot_t *robot);
 void zjmp(corewar_t *corewar, robot_t *robot);
 
 bool register_is_valid(int register_nb);
