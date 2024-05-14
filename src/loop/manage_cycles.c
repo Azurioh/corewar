@@ -7,8 +7,10 @@
 
 #include "../../include/corewar.h"
 
-static void exec_robots_instruction(corewar_t *corewar)
+static void exec_robots_instruction(corewar_t *corewar, int cycle_tot)
 {
+    if (cycle_tot == corewar->dump_nbr)
+        dump_memory(corewar);
     for (int i = 0; i < corewar->nbr_robots; i++) {
         read_instruction(corewar, corewar->robots[i]);
     }
@@ -48,9 +50,12 @@ static void update_state_of_robots(robot_t *robot)
 
 int manage_cycles(corewar_t *corewar)
 {
+    int cycle_tot = 0;
+
     while (check_if_program_is_not_ended(corewar) == true) {
         for (int i = 0; i < corewar->nbr_cycle; i++) {
-            exec_robots_instruction(corewar);
+            exec_robots_instruction(corewar, cycle_tot);
+            cycle_tot += 1;
         }
         for (int i = 0; i < corewar->nbr_robots; i++) {
             update_state_of_robots(corewar->robots[i]);
