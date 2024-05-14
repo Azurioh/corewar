@@ -46,6 +46,9 @@ op_t get_operation_info(char *name);
 void read_instruction(corewar_t *corewar, robot_t *robot);
 int get_address(int index);
 int get_address_value(unsigned char *memory, int index);
+int read_parameters_with_cbyte(unsigned char *memory, char coding_byte,
+    int read_index);
+int get_movement_size_with_cbyte(char coding_byte);
 char *place_robot_in_arena(corewar_t *corewar);
 
 void live(corewar_t *corewar, robot_t *robot);
@@ -54,6 +57,9 @@ void sub(corewar_t *corewar, robot_t *robot);
 void st_instruction(corewar_t *corewar, robot_t *robot);
 void fork_instruction(corewar_t *corewar, robot_t *robot);
 void ld_instruction(corewar_t *corewar, robot_t *robot);
+void and_instruction(corewar_t *corewar, robot_t *robot);
+void or_instruction(corewar_t *corewar, robot_t *robot);
+void xor_instruction(corewar_t *corewar, robot_t *robot);
 
 bool register_is_valid(int register_nb);
 int convert_2bytes(unsigned char *memory, int index);
