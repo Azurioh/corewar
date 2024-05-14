@@ -19,7 +19,7 @@
     #include <stdbool.h>
 
 typedef struct corewar_s {
-    char *memory;
+    unsigned char *memory;
     robot_t **robots;
     robot_t *last_robot_alive;
     int carry;
@@ -30,7 +30,7 @@ typedef struct corewar_s {
 
 corewar_t *init_corewar(void);
 int corewar(int argc, char **argv);
-int read_file(char *filepath, char **buff);
+int read_file(char *filepath, unsigned char **buff);
 int parse_args(int argc, char **argv, corewar_t *corewar);
 int my_str_isnum(char const *str);
 int is_corfile(char *str);
@@ -43,7 +43,7 @@ int manage_cycles(corewar_t *corewar);
 op_t get_operation_info(char *name);
 void read_instruction(corewar_t *corewar, robot_t *robot);
 int get_address(int index);
-int get_address_value(char *memory, int index);
+int get_address_value(unsigned char *memory, int index);
 char *place_robot_in_arena(corewar_t *corewar);
 
 void live(corewar_t *corewar, robot_t *robot);

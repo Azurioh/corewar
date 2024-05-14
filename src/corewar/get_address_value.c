@@ -22,7 +22,7 @@ int get_address(int index)
     return index;
 }
 
-int get_address_value(char *memory, int index)
+int get_address_value(unsigned char *memory, int index)
 {
     int value;
 

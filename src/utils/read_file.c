@@ -7,7 +7,7 @@
 
 #include "../../include/corewar.h"
 
-int read_file(char *filepath, char **buff)
+int read_file(char *filepath, unsigned char **buff)
 {
     struct stat s;
     int fd;
