@@ -31,7 +31,7 @@ void lld_instruction(corewar_t *corewar, robot_t *robot)
     register_index = get_address_value(corewar->memory,
         robot->read_index + index_of_reg_nb);
     robot->registers[register_index] = value - 1;
-    robot->read_index += index_of_reg_nb;
+    robot->read_index = get_address(robot->read_index + index_of_reg_nb);
     if (value == 0)
         robot->carry = 1;
     return;

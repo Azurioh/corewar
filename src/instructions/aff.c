@@ -12,6 +12,6 @@ void aff(corewar_t *corewar, robot_t *robot)
 
     reg_index = get_address_value(corewar->memory, robot->read_index + 1);
     my_putchar(robot->registers[reg_index] % 256);
-    robot->read_index += 2;
+    robot->read_index = get_address(robot->read_index + 2);
     return;
 }

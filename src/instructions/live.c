@@ -42,7 +42,7 @@ void live(corewar_t *corewar, robot_t *robot)
 
     nb_player = convert_4bytes(corewar->memory, robot->read_index);
     index_robot = get_index_robot(corewar->robots, nb_player);
-    robot->read_index += 5;
+    robot->read_index = get_address(robot->read_index + 5);
     if (check_if_robots_exist(corewar, index_robot) == false) {
         return;
     }
