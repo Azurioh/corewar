@@ -29,8 +29,8 @@ int get_nparameter_value(robot_t *robot, unsigned char *memory, char c_byte,
         if (value == -1)
             return -1;
     } else {
-        value = convert_4bytes(memory, *index - 1);
-        *index += 4;
+        value = convert_2bytes(memory, *index - 1);
+        *index += 2;
     }
     return value;
 }
