@@ -6,9 +6,9 @@
 */
 #include "../../include/corewar.h"
 
-static int get_value(unsigned char *memory, robot_t *robot, int *index_reg)
+int get_value(unsigned char *memory, robot_t *robot, int *index_reg)
 {
-    char *type_tab = read_coding_byte(robot->read_index + 1);
+    char *type_tab = read_coding_byte(memory[robot->read_index + 1]);
     int index;
 
     if (type_tab[1] == T_DIR) {
