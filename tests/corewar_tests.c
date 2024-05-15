@@ -574,7 +574,7 @@ Test(set_instruction, set_instruction_successfull_3)
     robot->registers[3] = 92;
     st_instruction(corewar, robot);
     cr_assert_eq(robot->registers[3], 92);
-    cr_assert_eq(corewar->memory[memory_index], 92);
+    cr_assert_eq(convert_4bytes(corewar->memory, memory_index - 1), 92);
     cr_assert_eq(robot->read_index, 30);
 }
 Test(set_instruction, set_instruction_successfull_4)
@@ -610,7 +610,7 @@ Test(set_instruction, set_instruction_successfull_5)
     robot->registers[3] = 20;
     st_instruction(corewar, robot);
     cr_assert_eq(robot->registers[3], 20);
-    cr_assert_eq(corewar->memory[memory_index], 20);
+    cr_assert_eq(convert_4bytes(corewar->memory, memory_index - 1), 20);
     cr_assert_eq(robot->read_index, 3);
 }
 Test(set_instruction, set_instruction_with_wrong_register_1)
@@ -715,7 +715,7 @@ Test(set_instruction, set_instruction_with_wrong_register_6)
         ((corewar->memory[0] << 8) + (corewar->memory[1])) % IDX_MOD);
     st_instruction(corewar, robot);
     cr_assert_eq(robot->registers[3], 92);
-    cr_assert_eq(corewar->memory[memory_index], 92);
+    cr_assert_eq(convert_4bytes(corewar->memory, memory_index - 1), 92);
     cr_assert_eq(robot->read_index, 2);
 }
 
@@ -779,7 +779,7 @@ Test(fork_instruction, fork_instruction_successfull_2)
     cr_assert_not_null(corewar->robots[4]);
 }
 
-Test(live, live_instruction_successfull_1)
+Test(live, live_instruction_successfull_1, .init = redirect_all_std)
 {
     corewar_t *corewar = init_corewar();
     robot_t **list_robots = malloc(sizeof(robot_t *) * 2);
@@ -803,7 +803,7 @@ Test(live, live_instruction_successfull_1)
     cr_assert_eq(corewar->nbr_live, 1);
     cr_assert_eq(robot->read_index, 5);
 }
-Test(live, live_instruction_successfull_2)
+Test(live, live_instruction_successfull_2, .init = redirect_all_std)
 {
     corewar_t *corewar = init_corewar();
     robot_t **list_robots = malloc(sizeof(robot_t *) * 2);
@@ -889,52 +889,3 @@ Test(live, live_instruction_with_wrong_id_2)
     live(corewar, robot);
     cr_assert_eq(robot->is_alive, false);
 }
-// Test(live, live_instruction_successfull_1, .init = redirect_all_std)
-// {
-//     corewar_t *corewar = init_corewar();
-//     robot_t **robots = malloc(sizeof(robot_t *) * 3);
-
-//     robots[0] = malloc(sizeof(robot_t));
-//     robots[1] = malloc(sizeof(robot_t));
-//     robots[2] = NULL;
-//     robots[0]->read_index = 0;
-//     robots[0]->nb_player = 2;
-//     robots[0]->name = "Abel";
-//     robots[0]->is_alive = false;
-//     robots[1]->read_index = 5;
-//     robots[1]->nb_player = 3;
-//     robots[1]->name = "Tyler";
-//     robots[1]->is_alive = false;
-//     corewar->memory[1] = 2;
-//     corewar->memory[6] = 3;
-//     corewar->robots = robots;
-//     live(corewar, robots[0]);
-//     my_printf("DEBUG: %d\n", robots[0]->is_alive);
-//     cr_assert_eq(robots[0]->is_alive, true);
-//     cr_assert_eq(robots[1]->is_alive, false);
-//     cr_assert_stdout_eq_str("The player 2(abel)is alive.");
-// }
-// Test(live, live_instruction_successfull_2, .init = redirect_all_std)
-// {
-//     corewar_t *corewar = init_corewar();
-//     robot_t **robots = malloc(sizeof(robot_t *) * 3);
-
-//     robots[0] = malloc(sizeof(robot_t));
-//     robots[1] = malloc(sizeof(robot_t));
-//     robots[2] = NULL;
-//     robots[0]->read_index = 0;
-//     robots[0]->nb_player = 2;
-//     robots[0]->name = "Abel";
-//     robots[0]->is_alive = false;
-//     robots[1]->read_index = 5;
-//     robots[1]->nb_player = 3;
-//     robots[1]->name = "Tyler";
-//     robots[1]->is_alive = false;
-//     corewar->memory[1] = 2;
-//     corewar->memory[6] = 3;
-//     corewar->robots = robots;
-//     live(corewar, robots[1]);
-//     cr_assert_eq(robots[0]->is_alive, false);
-//     cr_assert_eq(robots[1]->is_alive, true);
-//     cr_assert_stdout_eq_str("The player 3(tyler)is alive.");
-// }

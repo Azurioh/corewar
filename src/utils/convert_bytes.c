@@ -7,29 +7,47 @@
 
 #include "../../include/corewar.h"
 
+static void convert_decimal_to_hexa(int nb, int *result)
+{
+    int calcul = nb;
+    int tmp;
+    int j = 3;
+    static int increment = 0;
+
+    while (calcul != 0) {
+        tmp = calcul % 16;
+        if (increment == 1) {
+            result[j] += tmp << 4;
+            j--;
+        } else {
+            increment++;
+            result[j] += tmp;
+        }
+        calcul /= 16;
+    }
+    return;
+}
+
 int convert_4bytes(unsigned char *memory, int index)
 {
     int bitshift = 0;
+    int value;
 
-    for (int i = 0; i < 3; i++) {
-        bitshift += get_address_value(memory,
-            index + (i + 1)) << (4 * (4 - i));
+    for (int i = 0; i < 4; i++) {
+        value = get_address_value(memory, index + (i + 1));
+        bitshift |= value << ((3 - i) * 8);
     }
-    bitshift += get_address_value(memory, index + 4);
     return bitshift;
 }
 
 int *convert_to_4bytes(int bitshift)
 {
-    int *value = malloc(sizeof(char) * 5);
+    int *value = malloc(sizeof(char) * 4);
 
-    if (!value) {
-        my_puterr("convert_to_4bytes: Memory allocation failed\n");
-        return NULL;
-    }
     for (int i = 0; i < 4; i++) {
-        value[i] = bitshift >> (4 * (4 - i));
+        value[i] = 0;
     }
+    convert_decimal_to_hexa(bitshift, value);
     return value;
 }
 

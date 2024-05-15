@@ -41,6 +41,7 @@ char *read_coding_byte(int byte);
 
 int manage_cycles(corewar_t *corewar);
 void dump_memory(corewar_t *corewar);
+void conv_hexa(unsigned int nb, char *str);
 
 op_t get_operation_info(char *name);
 void read_instruction(corewar_t *corewar, robot_t *robot);
