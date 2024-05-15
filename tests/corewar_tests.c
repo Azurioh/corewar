@@ -1180,3 +1180,17 @@ Test(lld_instruction, lld_instruction_too_big_indirect)
     cr_assert_eq(robot->registers[0], 3);
     cr_assert_eq(robot->carry, 0);
 }
+
+Test(aff_instruction, aff_instruction_too_big_indirect, .init = redirect_all_std)
+{
+    corewar_t *corewar = init_corewar();
+    robot_t *robot = malloc(sizeof(robot_t));
+
+    robot->read_index = 0;
+    robot->registers = malloc(sizeof(int) * REG_NUMBER);
+    corewar->memory[1] = 64;
+    corewar->memory[2] = 2;
+    robot->registers[1] = 340;
+    aff(corewar, robot);
+    cr_assert_stdout_eq_str("T");
+}
