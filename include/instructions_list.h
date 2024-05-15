@@ -25,7 +25,7 @@ const instructions_check_t INSTRUCTIONS_LIST[] = {
     { 0x08, &xor_instruction },
     { 0x09, &zjmp },
     { 0x0a, &ldi_instruction },
-    { 0x0b, NULL },
+    { 0x0b, &sti_instruction },
     { 0x0c, &fork_instruction },
     { 0x0d, &lld_instruction },
     { 0x0e, &lldi_instruction },
