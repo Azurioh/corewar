@@ -50,11 +50,11 @@ int get_sti_address_to_stock(robot_t *robot, unsigned char *memory,
     if (c_byte[1] == T_REG)
         *param_size += 1;
     else
-        *param_size += 4;
+        *param_size += 2;
     if (c_byte[2] == T_REG)
         *param_size += 1;
     else
-        *param_size += 4;
+        *param_size += 2;
     first_value = get_nparameter_value(robot, memory, c_byte[1], &index);
     second_value = get_nparameter_value(robot, memory, c_byte[2], &index);
     return first_value + second_value;
@@ -63,7 +63,7 @@ int get_sti_address_to_stock(robot_t *robot, unsigned char *memory,
 void sti_instruction(corewar_t *corewar, robot_t *robot)
 {
     char *c_byte = read_coding_byte(corewar->memory[robot->read_index + 1]);
-    int param_size = 2;
+    int param_size = 3;
     int value_to_store = get_register_value(robot, corewar->memory,
         get_address(robot->read_index + 2));
     int address = get_sti_address_to_stock(robot, corewar->memory, c_byte,
