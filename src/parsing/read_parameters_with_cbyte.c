@@ -15,6 +15,6 @@ int read_parameters_with_cbyte(unsigned char *memory, char coding_byte,
     } else if (coding_byte == T_DIR) {
         return convert_4bytes(memory, read_index);
     } else {
-        return get_address_value(memory, read_index);
+        return get_address_value(memory, read_index + 1);
     }
 }
