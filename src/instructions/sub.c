@@ -33,7 +33,7 @@ void sub(corewar_t *corewar, robot_t *robot)
         result = robot->registers[reg1 - 1] - robot->registers[reg2 - 1];
         robot->registers[reg3 - 1] = result;
         if (result == 0) {
-            corewar->carry = 1;
+            robot->carry = 1;
         }
     }
     robot->read_index = get_address(robot->read_index + 5);
