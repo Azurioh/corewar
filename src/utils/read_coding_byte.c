@@ -15,8 +15,8 @@ char *conv_binary(int nb)
         binary[i] = nb % 2 + 48;
         nb = nb / 2;
     }
-    if (i != 8) {
-        for (; i != 8; i++)
+    if (i < 8) {
+        for (; i < 8; i++)
             binary[i] = '0';
     }
     binary[i] = '\0';
@@ -52,7 +52,7 @@ char *read_coding_byte(int byte)
             parameters[i] = T_REG;
         if (binary_string[i * 2] == '1' && binary_string[i * 2 + 1] == '0')
             parameters[i] = T_DIR;
-        if (binary_string[i * 2] == '1' && binary_string[i + 1] == '1')
+        if (binary_string[i * 2] == '1' && binary_string[i * 2 + 1] == '1')
             parameters[i] = T_IND;
     }
     parameters[i] = '\0';
