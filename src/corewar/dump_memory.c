@@ -58,7 +58,7 @@ void dump_memory(corewar_t *corewar)
     if (memory == NULL)
         return;
     for (int i = 0; i < MEM_SIZE; i++) {
-        if (i % 32 == 0)
+        if (i != 0 && i % 32 == 0)
             my_putchar('\n');
         display_hexa(memory[i]);
         if ((i + 1) % 32 != 0) {
