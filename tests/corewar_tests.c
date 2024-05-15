@@ -6,7 +6,7 @@
 */
 
 #include <criterion/criterion.h>
-#include <criterion/new/assert.h>
+// #include <criterion/new/assert.h>
 #include <criterion/redirect.h>
 #include "../include/unittests.h"
 #include "../include/corewar.h"
@@ -1043,4 +1043,140 @@ Test(and_instruction, and_instruction_successfull_3)
     and_instruction(corewar, robot);
     cr_assert_eq(robot->read_index, 6);
     cr_assert_eq(robot->registers[4], result);
+}
+
+Test(ld_instruction, ld_instruction_direct)
+{
+    corewar_t *corewar = init_corewar();
+    robot_t *robot = malloc(sizeof(robot_t));
+
+    robot->read_index = 0;
+    robot->registers = malloc(sizeof(int) * REG_NUMBER);
+    corewar->memory[1] = 144;
+    corewar->memory[2] = 0;
+    corewar->memory[3] = 0;
+    corewar->memory[4] = 0;
+    corewar->memory[5] = 34;
+    corewar->memory[6] = 3;
+    ld_instruction(corewar, robot);
+    cr_assert_eq(robot->registers[2], 34);
+}
+
+Test(ld_instruction, ld_instruction_indirect)
+{
+    corewar_t *corewar = init_corewar();
+    robot_t *robot = malloc(sizeof(robot_t));
+
+    robot->read_index = 0;
+    robot->registers = malloc(sizeof(int) * REG_NUMBER);
+    corewar->memory[1] = 208;
+    corewar->memory[2] = 0;
+    corewar->memory[3] = 6;
+    corewar->memory[4] = 1;
+    corewar->memory[6] = 3;
+    ld_instruction(corewar, robot);
+    cr_assert_eq(robot->registers[0], 3);
+    cr_assert_eq(robot->carry, 0);
+}
+
+Test(ld_instruction, ld_instruction_carry_equal_one)
+{
+    corewar_t *corewar = init_corewar();
+    robot_t *robot = malloc(sizeof(robot_t));
+
+    robot->read_index = 0;
+    robot->registers = malloc(sizeof(int) * REG_NUMBER);
+    corewar->memory[1] = 208;
+    corewar->memory[2] = 0;
+    corewar->memory[3] = 6;
+    corewar->memory[4] = 1;
+    corewar->memory[6] = 0;
+    ld_instruction(corewar, robot);
+    cr_assert_eq(robot->registers[0], 0);
+    cr_assert_eq(robot->carry, 1);
+}
+
+Test(ld_instruction, ld_instruction_too_big_indirect)
+{
+    corewar_t *corewar = init_corewar();
+    robot_t *robot = malloc(sizeof(robot_t));
+
+    robot->read_index = 0;
+    robot->registers = malloc(sizeof(int) * REG_NUMBER);
+    corewar->memory[1] = 208;
+    corewar->memory[2] = 2;
+    corewar->memory[3] = 88;
+    corewar->memory[4] = 1;
+    corewar->memory[88] = 3;
+    ld_instruction(corewar, robot);
+    cr_assert_eq(robot->registers[0], 3);
+    cr_assert_eq(robot->carry, 0);
+}
+
+Test(lld_instruction, lld_instruction_direct)
+{
+    corewar_t *corewar = init_corewar();
+    robot_t *robot = malloc(sizeof(robot_t));
+
+    robot->read_index = 0;
+    robot->registers = malloc(sizeof(int) * REG_NUMBER);
+    corewar->memory[1] = 144;
+    corewar->memory[2] = 0;
+    corewar->memory[3] = 0;
+    corewar->memory[4] = 0;
+    corewar->memory[5] = 34;
+    corewar->memory[6] = 3;
+    lld_instruction(corewar, robot);
+    cr_assert_eq(robot->registers[2], 34);
+}
+
+Test(lld_instruction, lld_instruction_indirect)
+{
+    corewar_t *corewar = init_corewar();
+    robot_t *robot = malloc(sizeof(robot_t));
+
+    robot->read_index = 0;
+    robot->registers = malloc(sizeof(int) * REG_NUMBER);
+    corewar->memory[1] = 208;
+    corewar->memory[2] = 0;
+    corewar->memory[3] = 6;
+    corewar->memory[4] = 1;
+    corewar->memory[6] = 3;
+    lld_instruction(corewar, robot);
+    cr_assert_eq(robot->registers[0], 3);
+    cr_assert_eq(robot->carry, 0);
+}
+
+Test(lld_instruction, lld_instruction_carry_equal_one)
+{
+    corewar_t *corewar = init_corewar();
+    robot_t *robot = malloc(sizeof(robot_t));
+
+    robot->read_index = 0;
+    robot->registers = malloc(sizeof(int) * REG_NUMBER);
+    corewar->memory[1] = 208;
+    corewar->memory[2] = 0;
+    corewar->memory[3] = 6;
+    corewar->memory[4] = 1;
+    corewar->memory[6] = 0;
+    lld_instruction(corewar, robot);
+    cr_assert_eq(robot->registers[0], 0);
+    cr_assert_eq(robot->carry, 1);
+}
+
+Test(lld_instruction, lld_instruction_too_big_indirect)
+{
+    corewar_t *corewar = init_corewar();
+    robot_t *robot = malloc(sizeof(robot_t));
+
+    robot->read_index = 0;
+    robot->registers = malloc(sizeof(int) * REG_NUMBER);
+    corewar->memory[1] = 208;
+    corewar->memory[2] = 2;
+    corewar->memory[3] = 88;
+    corewar->memory[4] = 1;
+    corewar->memory[600] = 3;
+    lld_instruction(corewar, robot);
+    cr_assert_eq(robot->registers[0], 3);
+    cr_assert_eq(robot->carry, 0);
 }
