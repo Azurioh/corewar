@@ -66,5 +66,6 @@ robot_t *create_robot(char *filepath, int start, int number)
         free_robot(robot);
         return NULL;
     }
+    robot->nb_cycles_to_wait = 0;
     return robot;
 }

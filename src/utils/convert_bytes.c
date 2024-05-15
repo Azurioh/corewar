@@ -19,6 +19,20 @@ int convert_4bytes(unsigned char *memory, int index)
     return bitshift;
 }
 
+int *convert_to_4bytes(int bitshift)
+{
+    int *value = malloc(sizeof(char) * 5);
+
+    if (!value) {
+        my_puterr("convert_to_4bytes: Memory allocation failed\n");
+        return NULL;
+    }
+    for (int i = 0; i < 4; i++) {
+        value[i] = bitshift >> (4 * (4 - i));
+    }
+    return value;
+}
+
 int convert_2bytes(unsigned char *memory, int index)
 {
     int bitshift = 0;
