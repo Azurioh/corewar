@@ -1250,3 +1250,48 @@ Test(zjmp_instruction, zjmp_negative)
     zjmp(corewar, robot);
     cr_assert_eq(robot->read_index, 0);
 }
+
+Test(sti_instruction, sti_instruction_direct)
+{
+    corewar_t *corewar = init_corewar();
+    robot_t *robot = malloc(sizeof(robot_t));
+
+    robot->read_index = 0;
+    robot->registers = malloc(sizeof(int) * REG_NUMBER);
+    robot->registers[1] = 74;
+    corewar->memory[1] = 104;
+    corewar->memory[2] = 2;
+    corewar->memory[3] = 0;
+    corewar->memory[4] = 0;
+    corewar->memory[5] = 0;
+    corewar->memory[6] = 2;
+    corewar->memory[7] = 0;
+    corewar->memory[8] = 0;
+    corewar->memory[9] = 0;
+    corewar->memory[10] = 5;
+    sti_instruction(corewar, robot);
+    cr_assert_eq(corewar->memory[7], 74);
+    cr_assert_eq(robot->read_index, 11);
+}
+
+Test(sti_instruction, sti_instruction_direct_and_register)
+{
+    corewar_t *corewar = init_corewar();
+    robot_t *robot = malloc(sizeof(robot_t));
+
+    robot->read_index = 0;
+    robot->registers = malloc(sizeof(int) * REG_NUMBER);
+    robot->registers[1] = 74;
+    robot->registers[4] = 2;
+    corewar->memory[1] = 100;
+    corewar->memory[2] = 2;
+    corewar->memory[3] = 0;
+    corewar->memory[4] = 0;
+    corewar->memory[5] = 0;
+    corewar->memory[6] = 2;
+    corewar->memory[7] = 5;
+    corewar->memory[8] = 5;
+    sti_instruction(corewar, robot);
+    cr_assert_eq(corewar->memory[4], 74);
+    cr_assert_eq(robot->read_index, 8);
+}
