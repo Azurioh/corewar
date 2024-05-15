@@ -34,14 +34,17 @@ valgrind:	re
 
 clean:
 	make clean -C lib/my
+	make clean -C bonus
 	rm -f $(OBJS)
 	rm -f *.vgcore
 	rm -f *.gcno *.gcda
 
 fclean:	clean
 	make fclean -C lib/my
+	make fclean -C bonus
 	rm -f $(NAME)
 	rm -f unit_tests
+	rm -f corewar_bonus bonus/corewar_bonus
 
 re:	fclean	all
 
@@ -52,3 +55,7 @@ tests_run:	unit_tests
 	./unit_tests --verbose
 	gcovr --exclude tests
 	gcovr --exclude tests --branches
+
+bonus:	fclean
+	make -C bonus
+	cp bonus/corewar_bonus .
