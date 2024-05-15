@@ -1181,7 +1181,21 @@ Test(lld_instruction, lld_instruction_too_big_indirect)
     cr_assert_eq(robot->carry, 0);
 }
 
-Test(aff_instruction, aff_instruction_too_big_indirect, .init = redirect_all_std)
+Test(aff_instruction, aff_star, .init = redirect_all_std)
+{
+    corewar_t *corewar = init_corewar();
+    robot_t *robot = malloc(sizeof(robot_t));
+
+    robot->read_index = 0;
+    robot->registers = malloc(sizeof(int) * REG_NUMBER);
+    corewar->memory[1] = 64;
+    corewar->memory[2] = 2;
+    robot->registers[1] = '*';
+    aff(corewar, robot);
+    cr_assert_stdout_eq_str("*");
+}
+
+Test(aff_instruction, aff_big_t, .init = redirect_all_std)
 {
     corewar_t *corewar = init_corewar();
     robot_t *robot = malloc(sizeof(robot_t));
@@ -1193,4 +1207,46 @@ Test(aff_instruction, aff_instruction_too_big_indirect, .init = redirect_all_std
     robot->registers[1] = 340;
     aff(corewar, robot);
     cr_assert_stdout_eq_str("T");
+}
+
+Test(zjmp_instruction, zjmp_carry_zero)
+{
+    corewar_t *corewar = init_corewar();
+    robot_t *robot = malloc(sizeof(robot_t));
+
+    robot->carry = 0;
+    robot->read_index = 0;
+    robot->registers = malloc(sizeof(int) * REG_NUMBER);
+    corewar->memory[1] = 0;
+    corewar->memory[2] = 10;
+    zjmp(corewar, robot);
+    cr_assert_eq(robot->read_index, 3);
+}
+
+Test(zjmp_instruction, zjmp_ten)
+{
+    corewar_t *corewar = init_corewar();
+    robot_t *robot = malloc(sizeof(robot_t));
+
+    robot->carry = 1;
+    robot->read_index = 0;
+    robot->registers = malloc(sizeof(int) * REG_NUMBER);
+    corewar->memory[1] = 0;
+    corewar->memory[2] = 10;
+    zjmp(corewar, robot);
+    cr_assert_eq(robot->read_index, 10);
+}
+
+Test(zjmp_instruction, zjmp_negative)
+{
+    corewar_t *corewar = init_corewar();
+    robot_t *robot = malloc(sizeof(robot_t));
+
+    robot->carry = 1;
+    robot->read_index = 3;
+    robot->registers = malloc(sizeof(int) * REG_NUMBER);
+    corewar->memory[4] = 255;
+    corewar->memory[5] = 253;
+    zjmp(corewar, robot);
+    cr_assert_eq(robot->read_index, 0);
 }
