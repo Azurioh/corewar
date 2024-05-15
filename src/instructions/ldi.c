@@ -59,6 +59,7 @@ void ldi_instruction(corewar_t *corewar, robot_t *robot)
     int *args = parse_ldi_args(corewar->memory, robot, c_byte);
     int result = 0;
 
+    robot->carry = 0;
     if (!args) {
         free(c_byte);
         return;
@@ -66,7 +67,6 @@ void ldi_instruction(corewar_t *corewar, robot_t *robot)
     result = first_read_ldi(corewar, robot, args);
     result = second_read_ldi(corewar, robot, result);
     robot->registers[0] = result;
-    robot->carry = 0;
     if (result == 0) {
         robot->carry = 1;
     }

@@ -53,13 +53,13 @@ void or_instruction(corewar_t *corewar, robot_t *robot)
     if (!args) {
         return;
     }
+    robot->carry = 0;
     if (check_or_args_are_valid(args, c_byte) == false) {
         free(c_byte);
         free(args);
         return;
     }
     result = args[0] | args[1];
-    robot->carry = 0;
     if (result == 0) {
         robot->carry = 1;
     }

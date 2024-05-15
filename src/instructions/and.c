@@ -53,6 +53,7 @@ void and_instruction(corewar_t *corewar, robot_t *robot)
     if (!args) {
         return;
     }
+    robot->carry = 0;
     if (check_and_args_are_valid(args, c_byte) == false) {
         free(c_byte);
         free(args);
@@ -60,7 +61,6 @@ void and_instruction(corewar_t *corewar, robot_t *robot)
     }
     result = args[0] & args[1];
     robot->registers[args[2]] = result;
-    robot->carry = 0;
     if (result == 0) {
         robot->carry = 1;
     }
