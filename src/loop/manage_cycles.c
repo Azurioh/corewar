@@ -61,7 +61,7 @@ static void display_winner(corewar_t *corewar)
 
 int manage_cycles(corewar_t *corewar)
 {
-    int cycle_tot = 0;
+    int cycle_tot = 1;
 
     while (check_if_program_is_not_ended(corewar) == true) {
         for (int i = 0; i < corewar->nbr_cycle; i++) {
