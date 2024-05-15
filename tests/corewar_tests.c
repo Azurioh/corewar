@@ -1262,16 +1262,12 @@ Test(sti_instruction, sti_instruction_direct)
     corewar->memory[1] = 104;
     corewar->memory[2] = 2;
     corewar->memory[3] = 0;
-    corewar->memory[4] = 0;
+    corewar->memory[4] = 2;
     corewar->memory[5] = 0;
-    corewar->memory[6] = 2;
-    corewar->memory[7] = 0;
-    corewar->memory[8] = 0;
-    corewar->memory[9] = 0;
-    corewar->memory[10] = 5;
+    corewar->memory[6] = 5;
     sti_instruction(corewar, robot);
     cr_assert_eq(corewar->memory[7], 74);
-    cr_assert_eq(robot->read_index, 11);
+    cr_assert_eq(robot->read_index, 7);
 }
 
 Test(sti_instruction, sti_instruction_direct_and_register)
@@ -1286,12 +1282,9 @@ Test(sti_instruction, sti_instruction_direct_and_register)
     corewar->memory[1] = 100;
     corewar->memory[2] = 2;
     corewar->memory[3] = 0;
-    corewar->memory[4] = 0;
-    corewar->memory[5] = 0;
-    corewar->memory[6] = 2;
-    corewar->memory[7] = 5;
-    corewar->memory[8] = 5;
+    corewar->memory[4] = 2;
+    corewar->memory[5] = 5;
     sti_instruction(corewar, robot);
     cr_assert_eq(corewar->memory[4], 74);
-    cr_assert_eq(robot->read_index, 8);
+    cr_assert_eq(robot->read_index, 6);
 }
