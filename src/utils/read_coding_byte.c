@@ -30,7 +30,7 @@ int nb_parameters(char *binary)
 
     for (int i = 0; i != 8; i += 2) {
         if (binary[i] == '0' && binary[i + 1] == '0')
-            return len;
+            break;
         len += 1;
     }
     return len;
