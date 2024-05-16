@@ -12,7 +12,7 @@
 typedef struct robot_s {
     unsigned char *program;
     unsigned int prog_size;
-    unsigned int nb_player;
+    // unsigned int nb_player;
     int *registers;
     unsigned char *name;
     bool is_alive;
