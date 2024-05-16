@@ -29,7 +29,8 @@ int get_nparameter_value(robot_t *robot, unsigned char *memory, char c_byte,
         if (value == -1)
             return -1;
     } else {
-        value = convert_2bytes(memory, *index - 1);
+        value = convert_2bytes(memory,
+            get_address(robot->read_index + *index - 1));
         *index += 2;
     }
     return value;
@@ -51,13 +52,14 @@ void sti_instruction(corewar_t *corewar, robot_t *robot)
     char *c_byte = read_coding_byte(corewar->memory[robot->read_index + 1]);
     int param_size = 3;
     int value_to_store = get_register_value(robot,
-        get_address(robot->read_index + 2));
+        corewar->memory[get_address(robot->read_index + 2)]);
     int address = get_sti_address_to_stock(robot, corewar->memory, c_byte,
         &param_size);
 
     robot->read_index = get_address(robot->read_index + param_size);
     if (value_to_store == -1)
         return;
-    corewar->memory[get_address(address)] = value_to_store;
+    register_to_memory(corewar, get_address(robot->read_index -
+        param_size + address), value_to_store);
     return;
 }
