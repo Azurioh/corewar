@@ -35,7 +35,19 @@ int convert_4bytes(unsigned char *memory, int index)
 
     for (int i = 0; i < 4; i++) {
         value = get_address_value(memory, index + (i + 1));
-        bitshift |= value << ((3 - i) * 8);
+        bitshift += value << (8 * (3 - i));
+    }
+    return bitshift;
+}
+
+int convert_xbytes(unsigned char *memory, int index, int nb_read)
+{
+    int bitshift = 0;
+    int value;
+
+    for (int i = 0; i < nb_read; i++) {
+        value = get_address_value(memory, index + (i + 1));
+        bitshift += value << (8 * ((nb_read - 1) - i));
     }
     return bitshift;
 }
