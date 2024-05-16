@@ -1750,42 +1750,43 @@ Test(zjmp, zjmp_negative)
     cr_assert_eq(robot->read_index, 0);
 }
 
-// Test(sti_instruction, sti_instruction_direct)
-// {
-//     corewar_t *corewar = init_corewar();
-//     robot_t *robot = malloc(sizeof(robot_t));
+Test(sti_instruction, sti_instruction_direct)
+{
+    corewar_t *corewar = init_corewar();
+    robot_t *robot = malloc(sizeof(robot_t));
 
-//     robot->read_index = 0;
-//     robot->registers = malloc(sizeof(int) * REG_NUMBER);
-//     robot->registers[1] = 74;
-//     corewar->memory[1] = 104;
-//     corewar->memory[2] = 2;
-//     corewar->memory[3] = 0;
-//     corewar->memory[4] = 2;
-//     corewar->memory[5] = 0;
-//     corewar->memory[6] = 5;
-//     sti_instruction(corewar, robot);
-//     cr_assert_eq(corewar->memory[7], 74);
-//     cr_assert_eq(robot->read_index, 7);
-// }
-// Test(sti_instruction, sti_instruction_direct_and_register)
-// {
-//     corewar_t *corewar = init_corewar();
-//     robot_t *robot = malloc(sizeof(robot_t));
+    robot->read_index = 0;
+    robot->registers = malloc(sizeof(int) * REG_NUMBER);
+    robot->registers[1] = 74;
+    corewar->memory[1] = 104;
+    corewar->memory[2] = 2;
+    corewar->memory[3] = 0;
+    corewar->memory[4] = 2;
+    corewar->memory[5] = 0;
+    corewar->memory[6] = 5;
+    sti_instruction(corewar, robot);
+    cr_assert_eq(corewar->memory[10], 74);
+    cr_assert_eq(robot->read_index, 7);
+}
 
-//     robot->read_index = 0;
-//     robot->registers = malloc(sizeof(int) * REG_NUMBER);
-//     robot->registers[1] = 74;
-//     robot->registers[4] = 2;
-//     corewar->memory[1] = 100;
-//     corewar->memory[2] = 2;
-//     corewar->memory[3] = 0;
-//     corewar->memory[4] = 2;
-//     corewar->memory[5] = 5;
-//     sti_instruction(corewar, robot);
-//     cr_assert_eq(corewar->memory[4], 74);
-//     cr_assert_eq(robot->read_index, 6);
-// }
+Test(sti_instruction, sti_instruction_direct_and_register)
+{
+    corewar_t *corewar = init_corewar();
+    robot_t *robot = malloc(sizeof(robot_t));
+
+    robot->read_index = 0;
+    robot->registers = malloc(sizeof(int) * REG_NUMBER);
+    robot->registers[1] = 74;
+    robot->registers[4] = 2;
+    corewar->memory[1] = 100;
+    corewar->memory[2] = 2;
+    corewar->memory[3] = 0;
+    corewar->memory[4] = 2;
+    corewar->memory[5] = 5;
+    sti_instruction(corewar, robot);
+    cr_assert_eq(corewar->memory[7], 74);
+    cr_assert_eq(robot->read_index, 6);
+}
 
 Test(ldi_instruction, ldi_instruction_successfull_1)
 {
