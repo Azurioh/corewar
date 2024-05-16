@@ -6,14 +6,15 @@
 */
 #include "../../include/corewar.h"
 
-void place_robot(robot_t *robot, char unsigned *memory)
+void place_robot(robot_t *robot, memory_t *memory)
 {
     int index = robot->start_index_in_memory;
 
     for (unsigned int i = 0; i < robot->prog_size; i++) {
         if (index >= MEM_SIZE)
             return;
-        memory[index] = robot->program[i];
+        memory[index].memory = robot->program[i];
+        memory[index].author = robot->name;
         index += 1;
     }
 }

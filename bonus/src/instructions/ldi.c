@@ -27,7 +27,7 @@ static bool check_ldi_args(int *arguments, char *coding_byte, robot_t *robot)
     return true;
 }
 
-static int *parse_ldi_args(unsigned char *memory, robot_t *robot,
+static int *parse_ldi_args(memory_t *memory, robot_t *robot,
     char *coding_byte)
 {
     int *arguments = malloc(sizeof(int) * 4);

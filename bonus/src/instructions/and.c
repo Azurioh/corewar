@@ -7,7 +7,7 @@
 
 #include "../../include/corewar.h"
 
-static int *read_and_args(unsigned char *memory, robot_t *robot,
+static int *read_and_args(memory_t *memory, robot_t *robot,
     char *coding_byte)
 {
     int *arguments = malloc(sizeof(int) * 4);
@@ -50,7 +50,7 @@ static bool check_and_args_are_valid(int *args, char *c_byte, robot_t *robot)
 
 void and_instruction(corewar_t *corewar, robot_t *robot)
 {
-    char *c_byte = read_coding_byte(corewar->memory[robot->read_index + 1]);
+    char *c_byte = read_coding_byte(corewar->memory[robot->read_index + 1].memory);
     int *args = read_and_args(corewar->memory, robot, c_byte);
     int result;
 

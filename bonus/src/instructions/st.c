@@ -7,7 +7,7 @@
 
 #include "../../include/corewar.h"
 
-static int *parse_st_args(unsigned char *memory, char *coding_byte,
+static int *parse_st_args(memory_t *memory, char *coding_byte,
     int read_index)
 {
     int *arguments = malloc(sizeof(int) * 4);
@@ -57,7 +57,7 @@ static void store_st_result(corewar_t *corewar, int *arguments,
 
 void st_instruction(corewar_t *corewar, robot_t *robot)
 {
-    char *c_byte = read_coding_byte(corewar->memory[robot->read_index + 1]);
+    char *c_byte = read_coding_byte(corewar->memory[robot->read_index + 1].memory);
     int *arguments = parse_st_args(corewar->memory, c_byte,
         robot->read_index);
 

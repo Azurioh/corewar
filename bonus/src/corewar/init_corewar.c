@@ -7,16 +7,17 @@
 
 #include "../../include/corewar.h"
 
-static unsigned char *allocate_memory(void)
+static memory_t *allocate_memory(void)
 {
-    char unsigned *memory_arena = malloc(sizeof(unsigned char) * MEM_SIZE);
+    memory_t *memory_arena = malloc(sizeof(memory_t) * MEM_SIZE);
 
     if (!memory_arena) {
         my_puterr("allocate_memory_arena: Memory allocation failed\n");
         return NULL;
     }
     for (int i = 0; i < MEM_SIZE; i++) {
-        memory_arena[i] = 0;
+        memory_arena[i].memory = 0;
+        memory_arena[i].author = NULL;
     }
     return memory_arena;
 }

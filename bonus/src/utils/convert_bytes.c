@@ -28,7 +28,7 @@ static void convert_decimal_to_hexa(int nb, int *result)
     return;
 }
 
-int convert_4bytes(unsigned char *memory, int index)
+int convert_4bytes(memory_t *memory, int index)
 {
     int bitshift = 0;
     int value;
@@ -40,7 +40,7 @@ int convert_4bytes(unsigned char *memory, int index)
     return bitshift;
 }
 
-int convert_xbytes(unsigned char *memory, int index, int nb_read)
+int convert_xbytes(memory_t *memory, int index, int nb_read)
 {
     int bitshift = 0;
     int value;
@@ -63,7 +63,7 @@ int *convert_to_4bytes(int bitshift)
     return value;
 }
 
-int convert_2bytes(unsigned char *memory, int index)
+int convert_2bytes(memory_t *memory, int index)
 {
     int bitshift = 0;
 

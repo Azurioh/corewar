@@ -17,7 +17,7 @@ int get_register_value(robot_t *robot, int index)
     return register_value;
 }
 
-int get_nparameter_value(robot_t *robot, unsigned char *memory, char c_byte,
+int get_nparameter_value(robot_t *robot, memory_t *memory, char c_byte,
     int *index)
 {
     int value;
@@ -36,7 +36,7 @@ int get_nparameter_value(robot_t *robot, unsigned char *memory, char c_byte,
     return value;
 }
 
-int get_sti_address_to_stock(robot_t *robot, unsigned char *memory,
+int get_sti_address_to_stock(robot_t *robot, memory_t *memory,
     char *c_byte, int *param_size)
 {
     int first_value;
@@ -49,10 +49,10 @@ int get_sti_address_to_stock(robot_t *robot, unsigned char *memory,
 
 void sti_instruction(corewar_t *corewar, robot_t *robot)
 {
-    char *c_byte = read_coding_byte(corewar->memory[robot->read_index + 1]);
+    char *c_byte = read_coding_byte(corewar->memory[robot->read_index + 1].memory);
     int param_size = 3;
     int value_to_store = get_register_value(robot,
-        corewar->memory[get_address(robot->read_index + 2)]);
+        corewar->memory[get_address(robot->read_index + 2)].memory);
     int address = get_sti_address_to_stock(robot, corewar->memory, c_byte,
         &param_size);
 

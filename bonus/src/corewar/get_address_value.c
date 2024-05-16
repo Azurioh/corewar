@@ -22,7 +22,7 @@ int get_address(int index)
     return index;
 }
 
-int get_address_value(unsigned char *memory, int index)
+int get_address_value(memory_t *memory, int index)
 {
     int value;
 
@@ -36,6 +36,6 @@ int get_address_value(unsigned char *memory, int index)
             index += MEM_SIZE;
         }
     }
-    value = memory[index];
+    value = memory[index].memory;
     return value;
 }

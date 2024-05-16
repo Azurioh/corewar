@@ -6,9 +6,9 @@
 */
 #include "../../include/corewar.h"
 
-int get_lld_value(unsigned char *memory, robot_t *robot, int *index_reg)
+int get_lld_value(memory_t *memory, robot_t *robot, int *index_reg)
 {
-    char *type_tab = read_coding_byte(memory[robot->read_index + 1]);
+    char *type_tab = read_coding_byte(memory[robot->read_index + 1].memory);
     int index;
 
     if (type_tab[0] == T_DIR) {

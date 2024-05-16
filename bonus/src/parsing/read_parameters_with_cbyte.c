@@ -7,7 +7,7 @@
 
 #include "../../include/corewar.h"
 
-int read_parameters_with_cbyte(unsigned char *memory, char coding_byte,
+int read_parameters_with_cbyte(memory_t *memory, char coding_byte,
     int read_index)
 {
     if (coding_byte == T_IND) {

@@ -53,14 +53,14 @@ void display_hexa(int nb)
 
 void dump_memory(corewar_t *corewar)
 {
-    char unsigned *memory = corewar->memory;
+    memory_t *memory = corewar->memory;
 
     if (memory == NULL)
         return;
     for (int i = 0; i < MEM_SIZE; i++) {
         if (i != 0 && i % 32 == 0)
             my_putchar('\n');
-        display_hexa(memory[i]);
+        display_hexa(memory[i].memory);
         if ((i + 1) % 32 != 0) {
             my_putchar(' ');
         }

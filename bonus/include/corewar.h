@@ -21,8 +21,13 @@
     #define READ_INDEX robot->read_index
     #define MEMORY corewar->memory
 
+typedef struct memory_s {
+    unsigned char memory;
+    unsigned char *author;
+} memory_t;
+
 typedef struct corewar_s {
-    unsigned char *memory;
+    memory_t *memory;
     robot_t **robots;
     robot_t *last_robot_alive;
     int carry;
@@ -50,8 +55,8 @@ void conv_hexa(unsigned int nb, char *str);
 op_t get_operation_info(char *name);
 void read_instruction(corewar_t *corewar, robot_t *robot);
 int get_address(int index);
-int get_address_value(unsigned char *memory, int index);
-int read_parameters_with_cbyte(unsigned char *memory, char coding_byte,
+int get_address_value(memory_t *memory, int index);
+int read_parameters_with_cbyte(memory_t *memory, char coding_byte,
     int read_index);
 int get_movement_size_with_cbyte(char coding_byte);
 char *place_robot_in_arena(corewar_t *corewar);
@@ -74,9 +79,9 @@ void aff(corewar_t *corewar, robot_t *robot);
 void zjmp(corewar_t *corewar, robot_t *robot);
 
 bool register_is_valid(int register_nb);
-int convert_2bytes(unsigned char *memory, int index);
-int convert_4bytes(unsigned char *memory, int index);
-int convert_xbytes(unsigned char *memory, int index, int nb_read);
+int convert_2bytes(memory_t *memory, int index);
+int convert_4bytes(memory_t *memory, int index);
+int convert_xbytes(memory_t *memory, int index, int nb_read);
 int *convert_to_4bytes(int bitshift);
 void register_to_memory(corewar_t *corewar, int index, int value);
 #endif
