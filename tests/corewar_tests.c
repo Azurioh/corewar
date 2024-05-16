@@ -1543,7 +1543,7 @@ Test(xor_instruction, xor_instruction_with_wrong_register_3)
     corewar->memory[3] = 18;
     corewar->memory[4] = 25;
     corewar->memory[5] = 5;
-    robot->registers[4] = 5;
+    robot->registers[4] = 5; 
     val1 = get_address_value(corewar->memory, 2);
     val2 = robot->read_index + convert_2bytes(corewar->memory, 2) % IDX_MOD;
     result = val1 ^ val2;
@@ -1580,9 +1580,12 @@ Test(ld_instruction, ld_instruction_indirect)
     corewar->memory[2] = 0;
     corewar->memory[3] = 6;
     corewar->memory[4] = 1;
-    corewar->memory[6] = 3;
+    corewar->memory[6] = 0;
+    corewar->memory[7] = 5;
+    corewar->memory[8] = 1;
+    corewar->memory[9] = 3;
     ld_instruction(corewar, robot);
-    cr_assert_eq(robot->registers[0], 3);
+    cr_assert_eq(robot->registers[0], 327939);
     cr_assert_eq(robot->carry, 0);
 }
 Test(ld_instruction, ld_instruction_carry_equal_one)
@@ -1610,9 +1613,9 @@ Test(ld_instruction, ld_instruction_too_big_indirect)
     robot->registers = malloc(sizeof(int) * REG_NUMBER);
     corewar->memory[1] = 208;
     corewar->memory[2] = 2;
-    corewar->memory[3] = 88;
+    corewar->memory[3] = 136;
     corewar->memory[4] = 1;
-    corewar->memory[88] = 3;
+    corewar->memory[139] = 3;
     ld_instruction(corewar, robot);
     cr_assert_eq(robot->registers[0], 3);
     cr_assert_eq(robot->carry, 0);
@@ -1645,9 +1648,12 @@ Test(lld_instruction, lld_instruction_indirect)
     corewar->memory[2] = 0;
     corewar->memory[3] = 6;
     corewar->memory[4] = 1;
-    corewar->memory[6] = 3;
+    corewar->memory[6] = 0;
+    corewar->memory[7] = 5;
+    corewar->memory[8] = 1;
+    corewar->memory[9] = 3;
     lld_instruction(corewar, robot);
-    cr_assert_eq(robot->registers[0], 3);
+    cr_assert_eq(robot->registers[0], 327939);
     cr_assert_eq(robot->carry, 0);
 }
 Test(lld_instruction, lld_instruction_carry_equal_one)
@@ -1675,9 +1681,9 @@ Test(lld_instruction, lld_instruction_too_big_indirect)
     robot->registers = malloc(sizeof(int) * REG_NUMBER);
     corewar->memory[1] = 208;
     corewar->memory[2] = 2;
-    corewar->memory[3] = 88;
+    corewar->memory[3] = 136;
     corewar->memory[4] = 1;
-    corewar->memory[600] = 3;
+    corewar->memory[651] = 3;
     lld_instruction(corewar, robot);
     cr_assert_eq(robot->registers[0], 3);
     cr_assert_eq(robot->carry, 0);
