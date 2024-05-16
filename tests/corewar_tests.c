@@ -2902,9 +2902,21 @@ Test(parse_args, parse_invalid_args_7, .init = redirect_all_std)
     cr_assert_eq(parse_args(2, argv, corewar), 84);
 }
 
-Test(corewar, start_corewar, .init = redirect_all_std)
+Test(corewar, start_corewar_1, .init = redirect_all_std)
 {
     char *argv[] = { "./corewar", "tests/abel.cor", "tests/bill.cor" };
+
+    cr_assert_eq(corewar(3, argv), 0);
+}
+Test(corewar, start_corewar_2, .init = redirect_all_std)
+{
+    char *argv[] = { "./corewar", "tests/abel.cor", "tests/bill.cor", "-dump", "200" };
+
+    cr_assert_eq(corewar(3, argv), 0);
+}
+Test(corewar, start_corewar_3, .init = redirect_all_std)
+{
+    char *argv[] = { "./corewar", "tests/abel.cor", "tests/abel.cor" };
 
     cr_assert_eq(corewar(3, argv), 0);
 }
