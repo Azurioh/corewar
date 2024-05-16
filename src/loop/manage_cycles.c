@@ -9,14 +9,16 @@
 
 static void exec_robots_instruction(corewar_t *corewar, int cycle_tot)
 {
-    if (cycle_tot == corewar->dump_nbr)
-        dump_memory(corewar);
     for (int i = 0; i < corewar->nbr_robots; i++) {
         read_instruction(corewar, corewar->robots[i]);
     }
     if (corewar->nbr_live >= 40) {
         corewar->nbr_live = 0;
         corewar->nbr_cycle -= CYCLE_DELTA;
+    }
+    if (cycle_tot == corewar->dump_nbr) {
+        dump_memory(corewar);
+        corewar->is_dump = 1;
     }
 }
 
@@ -62,21 +64,32 @@ static void display_winner(corewar_t *corewar)
     }
 }
 
+static void exec_loop(corewar_t *corewar, int *cycle_tot)
+{
+    for (int i = 1; i <= corewar->nbr_cycle; i++) {
+        exec_robots_instruction(corewar, *cycle_tot);
+        if (corewar->is_dump == 1)
+            return;
+        *cycle_tot += 1;
+    }
+    return;
+}
+
 int manage_cycles(corewar_t *corewar)
 {
     int cycle_tot = 1;
 
+    corewar->is_dump = 0;
     while (check_if_program_is_not_ended(corewar) == true) {
         for (int i = 0; i < corewar->nbr_robots; i++) {
             corewar->robots[i]->is_alive = false;
         }
-        for (int i = 0; i < corewar->nbr_cycle; i++) {
-            exec_robots_instruction(corewar, cycle_tot);
-            cycle_tot += 1;
-        }
+        exec_loop(corewar, &cycle_tot);
         for (int i = 0; i < corewar->nbr_robots; i++) {
             update_state_of_robots(corewar->robots[i]);
         }
+        if (corewar->is_dump == 1)
+            break;
     }
     display_winner(corewar);
     return 0;

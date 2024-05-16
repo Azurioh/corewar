@@ -19,7 +19,7 @@ int get_value(unsigned char *memory, robot_t *robot, int *index_reg)
     index = convert_2bytes(memory, robot->read_index + 1) % IDX_MOD;
     index += robot->read_index;
     *index_reg += 2;
-    return get_address_value(memory, index);
+    return convert_4bytes(memory, get_address(index - 1));
 }
 
 void ld_instruction(corewar_t *corewar, robot_t *robot)
