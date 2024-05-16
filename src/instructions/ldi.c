@@ -10,7 +10,8 @@
 static bool check_ldi_args(int *arguments, char *coding_byte, robot_t *robot)
 {
     for (int i = 0; i < 2; i++) {
-        if (coding_byte[i] == T_REG && register_is_valid(arguments[i]) == false) {
+        if (coding_byte[i] == T_REG
+            && register_is_valid(arguments[i]) == false) {
             return false;
         }
         if (coding_byte[i] == T_REG) {
@@ -48,16 +49,6 @@ static int *parse_ldi_args(unsigned char *memory, robot_t *robot,
     return arguments;
 }
 
-static int first_read_ldi(corewar_t *corewar, robot_t *robot, int *arguments)
-{
-    int index = get_address(robot->read_index + arguments[0] % IDX_MOD - 1);
-    int result = 0;
-
-    result = convert_xbytes(corewar->memory, index, IND_SIZE);
-    result += arguments[1];
-    return result;
-}
-
 static int second_read_ldi(corewar_t *corewar, robot_t *robot,
     int previous_result)
 {
@@ -66,6 +57,16 @@ static int second_read_ldi(corewar_t *corewar, robot_t *robot,
 
     result = convert_xbytes(corewar->memory, index, REG_SIZE);
     return result;
+}
+
+static int first_read_ldi(corewar_t *corewar, robot_t *robot, int *arguments)
+{
+    int index = get_address(robot->read_index + arguments[0] % IDX_MOD - 1);
+    int result = 0;
+
+    result = convert_xbytes(corewar->memory, index, IND_SIZE);
+    result += arguments[1];
+    return second_read_ldi(corewar, robot, result);
 }
 
 void ldi_instruction(corewar_t *corewar, robot_t *robot)
@@ -86,7 +87,6 @@ void ldi_instruction(corewar_t *corewar, robot_t *robot)
         return;
     }
     result = first_read_ldi(corewar, robot, args);
-    result = second_read_ldi(corewar, robot, result);
     robot->registers[args[2] - 1] = result;
     if (result == 0)
         robot->carry = 1;
