@@ -8,14 +8,6 @@
 #include "../../include/corewar.h"
 #include <stdio.h>
 
-int my_putcorefile(char *buffer, int size)
-{
-    for (int i = 0; i < size; i++) {
-        my_printf("%x\n", buffer[i]);
-    }
-    return 0;
-}
-
 int corewar(int argc, char **argv)
 {
     corewar_t *corewar = init_corewar();
