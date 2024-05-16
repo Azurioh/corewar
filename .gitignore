@@ -52,7 +52,7 @@ Mkfile.old
 dkms.conf
 
 #Corewar related files
-*.cor
+champ
 *.log
 .vscode
 .idea

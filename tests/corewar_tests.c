@@ -2680,3 +2680,251 @@ Test(get_movement_size_with_cbyte, get_movement_size_with_invalid_cbyte)
 {
     cr_assert_eq(get_movement_size_with_cbyte(0), 0);
 }
+
+Test(dump_memory, dump_corewar_memory_1, .init = redirect_all_std)
+{
+    corewar_t *corewar = init_corewar();
+
+    dump_memory(corewar);
+}
+Test(dump_memory, dump_corewar_memory_2, .init = redirect_all_std)
+{
+    corewar_t *corewar = init_corewar();
+
+    MEMORY[0] = 1;
+    MEMORY[1] = 28;
+    MEMORY[2] = 243;
+    dump_memory(corewar);
+}
+Test(dump_memory, dump_empty_corewar_memory)
+{
+    corewar_t *corewar = init_corewar();
+
+    free(corewar->memory);
+    corewar->memory = NULL;
+    dump_memory(corewar);
+}
+
+Test(fill_robots, fill_robots_1)
+{
+    corewar_t *corewar = init_corewar();
+    robot_t **robots = malloc(sizeof(robot_t *) * 3);
+    char *argv[] = { "tests/abel.cor", "tests/tyron.cor" };
+
+    robots[2] = NULL;
+    corewar->nbr_robots = 2;
+    corewar->robots = robots;
+    fill_robots(argv, corewar);
+    cr_assert_not_null(corewar->robots[0]);
+    cr_assert_not_null(corewar->robots[1]);
+    cr_assert_eq(my_strcmp(corewar->robots[0]->name, "Abel"), 0);
+    cr_assert_eq(my_strcmp(corewar->robots[1]->name, "Tyron"), 0);
+}
+Test(fill_robots, fill_robots_2)
+{
+    corewar_t *corewar = init_corewar();
+    robot_t **robots = malloc(sizeof(robot_t *) * 3);
+    char *argv[] = { "-n", "256", "tests/abel.cor", "-n", "123", "tests/tyron.cor" };
+
+    robots[2] = NULL;
+    corewar->nbr_robots = 2;
+    corewar->robots = robots;
+    fill_robots(argv, corewar);
+    cr_assert_not_null(corewar->robots[0]);
+    cr_assert_not_null(corewar->robots[1]);
+    cr_assert_eq(my_strcmp(corewar->robots[0]->name, "Abel"), 0);
+    cr_assert_eq(my_strcmp(corewar->robots[1]->name, "Tyron"), 0);
+}
+Test(fill_robots, fill_robots_3)
+{
+    corewar_t *corewar = init_corewar();
+    robot_t **robots = malloc(sizeof(robot_t *) * 3);
+    char *argv[] = { "-a", "0", "tests/abel.cor", "-a", "25", "tests/tyron.cor" };
+
+    robots[2] = NULL;
+    corewar->nbr_robots = 2;
+    corewar->robots = robots;
+    fill_robots(argv, corewar);
+    cr_assert_not_null(corewar->robots[0]);
+    cr_assert_not_null(corewar->robots[1]);
+    cr_assert_eq(my_strcmp(corewar->robots[0]->name, "Abel"), 0);
+    cr_assert_eq(my_strcmp(corewar->robots[1]->name, "Tyron"), 0);
+}
+Test(fill_robots, invalid_fill_robots_1)
+{
+    corewar_t *corewar = init_corewar();
+    robot_t **robots = malloc(sizeof(robot_t *) * 3);
+    char *argv[] = { "-n", "tests/abel.cor", "-pozds", "5" "tests/tyron.cor" };
+
+    robots[2] = NULL;
+    corewar->nbr_robots = 2;
+    corewar->robots = robots;
+    cr_assert_eq(fill_robots(argv, corewar), 84);
+}
+Test(fill_robots, invalid_fill_robots_2)
+{
+    corewar_t *corewar = init_corewar();
+    robot_t **robots = malloc(sizeof(robot_t *) * 3);
+    char *argv[] = { "-n", "tests/abel.cor", "-pozds", "5" "tests/tyron.cor", "-n" };
+
+    robots[2] = NULL;
+    corewar->nbr_robots = 3;
+    corewar->robots = robots;
+    cr_assert_eq(fill_robots(argv, corewar), 84);
+}
+Test(fill_robots, invalid_fill_robots_3)
+{
+    corewar_t *corewar = init_corewar();
+    robot_t **robots = malloc(sizeof(robot_t *) * 3);
+    char *argv[] = { "-n", "tests/abel.cor", "-pozds", "5" "tests/tyron.cor", "-a" };
+
+    robots[2] = NULL;
+    corewar->nbr_robots = 3;
+    corewar->robots = robots;
+    cr_assert_eq(fill_robots(argv, corewar), 84);
+}
+Test(fill_robots, invalid_fill_robots_4)
+{
+    corewar_t *corewar = init_corewar();
+    robot_t **robots = malloc(sizeof(robot_t *) * 3);
+    char *argv[] = { "-n", "tests/abel.cor", "-pozds", "5" "tests/tyron.cor", "-a", "-5" };
+
+    robots[2] = NULL;
+    corewar->nbr_robots = 3;
+    corewar->robots = robots;
+    cr_assert_eq(fill_robots(argv, corewar), 84);
+}
+Test(fill_robots, invalid_fill_robots_5)
+{
+    corewar_t *corewar = init_corewar();
+    robot_t **robots = malloc(sizeof(robot_t *) * 3);
+    char *argv[] = { "-n", "tests/abel.cor", "-pozds", "5" "tests/tyron.cor", "-a", "dozdnqodizn" };
+
+    robots[2] = NULL;
+    corewar->nbr_robots = 3;
+    corewar->robots = robots;
+    cr_assert_eq(fill_robots(argv, corewar), 84);
+}
+Test(fill_robots, invalid_fill_robots_6)
+{
+    corewar_t *corewar = init_corewar();
+    robot_t **robots = malloc(sizeof(robot_t *) * 3);
+    char *argv[] = { "-n", "tests/abel.cor", "-pozds", "5" "tests/tyron.cor", "-n", "dzqjdoiqzdd" };
+
+    robots[2] = NULL;
+    corewar->nbr_robots = 3;
+    corewar->robots = robots;
+    cr_assert_eq(fill_robots(argv, corewar), 84);
+}
+
+Test(get_address_value, get_the_value_of_an_address_1)
+{
+    unsigned char *memory = malloc(sizeof(unsigned char));
+
+    memory[0] = 230;
+    cr_assert_eq(get_address_value(memory, 0), 230);
+}
+Test(get_address_value, get_the_value_of_an_address_2)
+{
+    unsigned char *memory = malloc(sizeof(unsigned char));
+
+    memory[0] = 80;
+    cr_assert_eq(get_address_value(memory, MEM_SIZE), 80);
+}
+Test(get_address_value, get_the_value_of_an_address_3)
+{
+    unsigned char *memory = malloc(sizeof(unsigned char));
+
+    memory[0] = 50;
+    cr_assert_eq(get_address_value(memory, -MEM_SIZE), 50);
+}
+
+Test(init_corewar, init_the_corewar_struct)
+{
+    corewar_t *corewar = init_corewar();
+
+    cr_assert_not_null(corewar);
+    cr_assert_not_null(corewar->memory);
+    cr_assert_null(corewar->robots);
+    cr_assert_eq(corewar->nbr_cycle, CYCLE_TO_DIE);
+    cr_assert_eq(corewar->nbr_robots, 0);
+    cr_assert_eq(corewar->dump_nbr, -1);
+}
+
+Test(parse_args, parse_invalid_args_1, .init = redirect_all_std)
+{
+    corewar_t *corewar = init_corewar();
+
+    corewar->nbr_robots = 5;
+    cr_assert_eq(parse_args(0, NULL, corewar), 84);
+}
+Test(parse_args, parse_invalid_args_2, .init = redirect_all_std)
+{
+    corewar_t *corewar = init_corewar();
+
+    corewar->nbr_robots = 1;
+    cr_assert_eq(parse_args(0, NULL, corewar), 84);
+}
+Test(parse_args, parse_invalid_args_3, .init = redirect_all_std)
+{
+    corewar_t *corewar = init_corewar();
+    char *argv[] = { "-n", "tests/abel.cor", "-pozds", "5" "tests/tyron.cor", "-a", "dozdnqodizn" };
+
+    corewar->nbr_robots = 2;
+    cr_assert_eq(parse_args(0, argv, corewar), 84);
+}
+Test(parse_args, parse_invalid_args_4, .init = redirect_all_std)
+{
+    corewar_t *corewar = init_corewar();
+    char *argv[] = { "-dump", "-2" };
+
+    cr_assert_eq(parse_args(2, argv, corewar), 84);
+}
+Test(parse_args, parse_invalid_args_5, .init = redirect_all_std)
+{
+    corewar_t *corewar = init_corewar();
+    char *argv[] = { "-dump", "ldnqkldsn" };
+
+    cr_assert_eq(parse_args(2, argv, corewar), 84);
+}
+Test(parse_args, parse_invalid_args_6, .init = redirect_all_std)
+{
+    corewar_t *corewar = init_corewar();
+    char *argv[] = { "-dump", "25" };
+
+    cr_assert_eq(parse_args(2, argv, corewar), 84);
+}
+Test(parse_args, parse_invalid_args_7, .init = redirect_all_std)
+{
+    corewar_t *corewar = init_corewar();
+    char *argv[] = { "dqzdqzqz", "25" };
+
+    cr_assert_eq(parse_args(2, argv, corewar), 84);
+}
+
+Test(corewar, start_corewar_1, .init = redirect_all_std)
+{
+    char *argv[] = { "./corewar", "tests/abel.cor", "tests/bill.cor" };
+
+    cr_assert_eq(corewar(3, argv), 0);
+}
+Test(corewar, start_corewar_2, .init = redirect_all_std)
+{
+    char *argv[] = { "./corewar", "tests/abel.cor", "tests/bill.cor", "-dump", "200" };
+
+    cr_assert_eq(corewar(3, argv), 0);
+}
+Test(corewar, start_corewar_3, .init = redirect_all_std)
+{
+    char *argv[] = { "./corewar", "tests/abel.cor", "tests/abel.cor" };
+
+    cr_assert_eq(corewar(3, argv), 0);
+}
+Test(corewar, failed_start_corewar, .init = redirect_all_std)
+{
+    char *argv[] = { "./corewar", "tests/abel.cor", "-n", "-5", "bill.cor" };
+
+    cr_assert_eq(corewar(3, argv), 84);
+}
+
+
