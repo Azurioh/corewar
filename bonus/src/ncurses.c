@@ -1,7 +1,15 @@
+/*
+** EPITECH PROJECT, 2024
+** corewar
+** File description:
+** ncurses
+*/
+
 // #include <ncurses.h>
 // #include <stdlib.h>
 
-// static void print_robot_information(WINDOW *win1, WINDOW *win2, WINDOW *win3, WINDOW *win4)
+// static void print_robot_information(WINDOW *win1,
+//     WINDOW *win2, WINDOW *win3, WINDOW *win4)
 // {
 //     wattron(win1, COLOR_PAIR(1));
 //     wattron(win2, COLOR_PAIR(2));
@@ -59,7 +67,7 @@
 
 // int main(void)
 // {
-//     WINDOW *win1;    
+//     WINDOW *win1;
 //     WINDOW *win2;
 //     WINDOW *win3;
 //     WINDOW *win4;

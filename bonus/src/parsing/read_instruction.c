@@ -32,7 +32,7 @@ void read_instruction(corewar_t *corewar, robot_t *robot)
         return;
     }
     for (int i = 0; INSTRUCTIONS_LIST[i].id != 0; i++) {
-        if (corewar->memory[robot->read_index].memory == INSTRUCTIONS_LIST[i].id) {
+        if (MEMORY[robot->read_index].memory == INSTRUCTIONS_LIST[i].id) {
             INSTRUCTIONS_LIST[i].function(corewar, robot);
             update_robot_cooldown(i, robot);
             return;

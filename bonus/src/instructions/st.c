@@ -46,7 +46,7 @@ static void store_st_result(corewar_t *corewar, int *arguments,
     value = robot->registers[(int)arguments[0] - 1];
     if (coding_byte[1] == T_IND) {
         register_to_memory(corewar,
-            robot->read_index + (int)arguments[1] % IDX_MOD, value);
+            robot->read_index + (int)arguments[1] % IDX_MOD, value, robot);
     } else {
         if (register_is_valid((int)arguments[1]) == false) {
             return;
@@ -57,7 +57,7 @@ static void store_st_result(corewar_t *corewar, int *arguments,
 
 void st_instruction(corewar_t *corewar, robot_t *robot)
 {
-    char *c_byte = read_coding_byte(corewar->memory[robot->read_index + 1].memory);
+    char *c_byte = read_coding_byte(MEMORY[robot->read_index + 1].memory);
     int *arguments = parse_st_args(corewar->memory, c_byte,
         robot->read_index);
 

@@ -83,5 +83,6 @@ int convert_2bytes(memory_t *memory, int index);
 int convert_4bytes(memory_t *memory, int index);
 int convert_xbytes(memory_t *memory, int index, int nb_read);
 int *convert_to_4bytes(int bitshift);
-void register_to_memory(corewar_t *corewar, int index, int value);
+void register_to_memory(corewar_t *corewar, int index, int value,
+    robot_t *robot);
 #endif

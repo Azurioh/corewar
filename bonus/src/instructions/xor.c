@@ -50,8 +50,8 @@ static bool check_xor_args_are_valid(int *args, char *c_byte, robot_t *robot)
 
 void xor_instruction(corewar_t *corewar, robot_t *robot)
 {
-    char *c_byte = read_coding_byte(corewar->memory[robot->read_index + 1].memory);
-    int *args = read_xor_args(corewar->memory, robot, c_byte);
+    char *c_byte = read_coding_byte(MEMORY[robot->read_index + 1].memory);
+    int *args = read_xor_args(MEMORY, robot, c_byte);
     int result;
 
     if (!args)

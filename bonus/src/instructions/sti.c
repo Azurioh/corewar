@@ -49,7 +49,7 @@ int get_sti_address_to_stock(robot_t *robot, memory_t *memory,
 
 void sti_instruction(corewar_t *corewar, robot_t *robot)
 {
-    char *c_byte = read_coding_byte(corewar->memory[robot->read_index + 1].memory);
+    char *c_byte = read_coding_byte(MEMORY[robot->read_index + 1].memory);
     int param_size = 3;
     int value_to_store = get_register_value(robot,
         corewar->memory[get_address(robot->read_index + 2)].memory);
@@ -60,6 +60,6 @@ void sti_instruction(corewar_t *corewar, robot_t *robot)
     if (value_to_store == -1)
         return;
     register_to_memory(corewar, get_address(robot->read_index -
-        param_size + address), value_to_store);
+        param_size + address), value_to_store, robot);
     return;
 }

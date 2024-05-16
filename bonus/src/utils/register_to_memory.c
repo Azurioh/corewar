@@ -7,7 +7,8 @@
 
 #include "../../include/corewar.h"
 
-void register_to_memory(corewar_t *corewar, int index, int value, robot_t *robot)
+void register_to_memory(corewar_t *corewar, int index, int value,
+    robot_t *robot)
 {
     int shift = 24;
 
