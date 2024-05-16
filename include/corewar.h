@@ -18,6 +18,9 @@
     #include <unistd.h>
     #include <stdbool.h>
 
+    #define READ_INDEX robot->read_index
+    #define MEMORY corewar->memory
+
 typedef struct corewar_s {
     unsigned char *memory;
     robot_t **robots;
@@ -72,6 +75,7 @@ void zjmp(corewar_t *corewar, robot_t *robot);
 bool register_is_valid(int register_nb);
 int convert_2bytes(unsigned char *memory, int index);
 int convert_4bytes(unsigned char *memory, int index);
+int convert_xbytes(unsigned char *memory, int index, int nb_read);
 int *convert_to_4bytes(int bitshift);
 void register_to_memory(corewar_t *corewar, int index, int value);
 #endif
