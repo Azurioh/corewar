@@ -28,8 +28,8 @@ static robot_t *duplicate_robot(robot_t *robot)
     new_robot->name = my_uns_strdup(robot->name);
     new_robot->program = my_uns_strdup((unsigned char *)"");
     new_robot->prog_size = robot->prog_size;
-    new_robot->nb_player = robot->nb_player;
     new_robot->registers = duplicate_registers(robot->registers);
+    new_robot->registers[0] = robot->registers[0];
     new_robot->is_alive = robot->is_alive;
     new_robot->is_dead = robot->is_dead;
     new_robot->start_index_in_memory = robot->start_index_in_memory;

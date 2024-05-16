@@ -34,16 +34,16 @@ static bool load_robot_informations(robot_t *robot, char unsigned *buffer,
         return false;
     if (init_registers(robot) == false)
         return false;
+    if (number == -1) {
+        robot->registers[0] = nb_player;
+        nb_player++;
+    } else
+        robot->registers[0] = number;
     robot->start_index_in_memory = start;
     robot->read_index = start;
     robot->is_alive = false;
     robot->is_dead = false;
     robot->carry = 1;
-    if (number == -1) {
-        robot->nb_player = nb_player;
-        nb_player++;
-    } else
-        robot->nb_player = number;
     return true;
 }
 
