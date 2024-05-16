@@ -43,6 +43,9 @@ static bool check_if_program_is_not_ended(corewar_t *corewar)
 
 static void update_state_of_robots(robot_t *robot)
 {
+    if (robot->is_dead) {
+        return;
+    }
     if (robot->is_alive == false) {
         robot->is_dead = true;
     }
@@ -54,7 +57,7 @@ static void display_winner(corewar_t *corewar)
         my_printf("No winner !\n");
     } else {
         my_printf("The player %d(%s) win!\n",
-            corewar->last_robot_alive->nb_player,
+            corewar->last_robot_alive->registers[0],
             corewar->last_robot_alive->name);
     }
 }
@@ -68,8 +71,6 @@ int manage_cycles(corewar_t *corewar)
             corewar->robots[i]->is_alive = false;
         }
         for (int i = 0; i < corewar->nbr_cycle; i++) {
-
-            my_printf("cycle n°%d,  %d / %d,    nbr_live: %d\n", cycle_tot, i + 1, corewar->nbr_cycle, corewar->nbr_live);
             exec_robots_instruction(corewar, cycle_tot);
             cycle_tot += 1;
         }
