@@ -38,7 +38,6 @@ void read_instruction(corewar_t *corewar, robot_t *robot)
             return;
         }
     }
-    // robot->is_alive = false;
-    // robot->is_dead = true;
+    robot->read_index += 1;
     return;
 }
