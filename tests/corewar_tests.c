@@ -2205,6 +2205,10 @@ Test(read_file, read_non_existant_file, .init = redirect_all_std)
 
     cr_assert_eq(size_readed, -1);
 }
+Test(read_file, read_NULL_file)
+{
+    int size_readed = read_file(NULL, NULL);
+}
 
 Test(is_file_exist, check_if_file_exist)
 {
@@ -2224,6 +2228,16 @@ Test(convert_4bytes, convert_4bytes_to_int_1)
     memory[2] = 25;
     memory[3] = 25;
     cr_assert_eq(convert_4bytes(memory, -1), 421075225);
+}
+Test(convert_4bytes, convert_4bytes_to_int_2)
+{
+    unsigned char *memory = malloc(sizeof(unsigned char) * 4);
+
+    memory[0] = 48;
+    memory[1] = 0;
+    memory[2] = 187;
+    memory[3] = 32;
+    cr_assert_eq(convert_4bytes(memory, -1), 805354272);
 }
 
 Test(convert_xbytes, convert_xbytes_to_int_1)
@@ -2268,5 +2282,395 @@ Test(convert_to_4bytes, convert_value_to_4bytes_2)
 
 Test(convert_2bytes, convert_2bytes_to_int_1)
 {
+    unsigned char *memory = malloc(sizeof(unsigned char) * 2);
 
+    memory[0] = 25;
+    memory[1] = 30;
+    cr_assert_eq(convert_2bytes(memory, -1), 6430);
+}
+Test(convert_2bytes, convert_2bytes_to_int_2)
+{
+    unsigned char *memory = malloc(sizeof(unsigned char) * 2);
+
+    memory[0] = 210;
+    memory[1] = 87;
+    cr_assert_eq(convert_2bytes(memory, -1), 53847);
+}
+
+Test(place_robot_in_arena, place_2_robots_in_arena)
+{
+    corewar_t *corewar = init_corewar();
+    robot_t **robots = malloc(sizeof(robot_t *) * 3);
+    robot_t *robot1 = malloc(sizeof(robot_t));
+    robot_t *robot2 = malloc(sizeof(robot_t));
+
+    robot1->program = malloc(sizeof(unsigned char) * 5);
+    robot1->program[0] = 1;
+    robot1->program[1] = 2;
+    robot1->program[2] = 3;
+    robot1->program[3] = 4;
+    robot1->program[4] = 5;
+    robot1->prog_size = 5;
+    robot1->start_index_in_memory = -1;
+    robot2->program = malloc(sizeof(unsigned char) * 5);
+    robot2->program[0] = 6;
+    robot2->program[1] = 7;
+    robot2->program[2] = 8;
+    robot2->program[3] = 9;
+    robot2->program[4] = 10;
+    robot2->prog_size = 5;
+    robot2->start_index_in_memory = -1;
+    robots[0] = robot1;
+    robots[1] = robot2;
+    robots[2] = NULL;
+    corewar->nbr_robots = 2;
+    corewar->robots = robots;
+    place_robot_in_arena(corewar);
+    cr_assert_eq(corewar->memory[0], 1);
+    cr_assert_eq(corewar->memory[1], 2);
+    cr_assert_eq(corewar->memory[2], 3);
+    cr_assert_eq(corewar->memory[3], 4);
+    cr_assert_eq(corewar->memory[4], 5);
+    cr_assert_eq(corewar->memory[3072], 6);
+    cr_assert_eq(corewar->memory[3073], 7);
+    cr_assert_eq(corewar->memory[3074], 8);
+    cr_assert_eq(corewar->memory[3075], 9);
+    cr_assert_eq(corewar->memory[3076], 10);
+}
+Test(place_robot_in_arena, place_robot_in_end_of_arena)
+{
+    corewar_t *corewar = init_corewar();
+    robot_t **robots = malloc(sizeof(robot_t *) * 3);
+    robot_t *robot1 = malloc(sizeof(robot_t));
+    robot_t *robot2 = malloc(sizeof(robot_t));
+
+    robot1->program = malloc(sizeof(unsigned char) * 5);
+    robot1->program[0] = 1;
+    robot1->program[1] = 2;
+    robot1->program[2] = 3;
+    robot1->program[3] = 4;
+    robot1->program[4] = 5;
+    robot1->prog_size = 5;
+    robot1->start_index_in_memory = MEM_SIZE - 3;
+    robots[0] = robot1;
+    robots[1] = NULL;
+    corewar->nbr_robots = 1;
+    corewar->robots = robots;
+    place_robot_in_arena(corewar);
+    cr_assert_eq(corewar->memory[MEM_SIZE - 3], 1);
+    cr_assert_eq(corewar->memory[MEM_SIZE - 2], 2);
+    cr_assert_eq(corewar->memory[MEM_SIZE - 1], 3);
+}
+
+Test(get_number_of_robots_alive, get_number_of_robots_alive_in_corewar_1)
+{
+    robot_t **robots = malloc(sizeof(robot_t *) * 5);
+    robot_t *robot1 = malloc(sizeof(robot_t));
+    robot_t *robot2 = malloc(sizeof(robot_t));
+    robot_t *robot3 = malloc(sizeof(robot_t));
+    robot_t *robot4 = malloc(sizeof(robot_t));
+
+    robot1->is_alive = true;
+    robot2->is_alive = false;
+    robot3->is_alive = true;
+    robot4->is_alive = true;
+    robots[0] = robot1;
+    robots[1] = robot2;
+    robots[2] = robot3;
+    robots[3] = robot4;
+    robots[4] = NULL;
+    cr_assert_eq(get_number_of_robots_alive(robots), 3);
+}
+Test(get_number_of_robots_alive, get_number_of_robots_alive_in_corewar_2)
+{
+    robot_t **robots = malloc(sizeof(robot_t *) * 5);
+    robot_t *robot1 = malloc(sizeof(robot_t));
+    robot_t *robot2 = malloc(sizeof(robot_t));
+    robot_t *robot3 = malloc(sizeof(robot_t));
+    robot_t *robot4 = malloc(sizeof(robot_t));
+
+    robot1->is_alive = true;
+    robot2->is_alive = true;
+    robot3->is_alive = true;
+    robot4->is_alive = true;
+    robots[0] = robot1;
+    robots[1] = robot2;
+    robots[2] = robot3;
+    robots[3] = robot4;
+    robots[4] = NULL;
+    cr_assert_eq(get_number_of_robots_alive(robots), 4);
+}
+Test(get_number_of_robots_alive, get_number_of_robots_alive_in_corewar_3)
+{
+    robot_t **robots = malloc(sizeof(robot_t *) * 5);
+    robot_t *robot1 = malloc(sizeof(robot_t));
+    robot_t *robot2 = malloc(sizeof(robot_t));
+    robot_t *robot3 = malloc(sizeof(robot_t));
+    robot_t *robot4 = malloc(sizeof(robot_t));
+
+    robot1->is_alive = false;
+    robot2->is_alive = false;
+    robot3->is_alive = false;
+    robot4->is_alive = false;
+    robots[0] = robot1;
+    robots[1] = robot2;
+    robots[2] = robot3;
+    robots[3] = robot4;
+    robots[4] = NULL;
+    cr_assert_eq(get_number_of_robots_alive(robots), 0);
+}
+Test(get_number_of_robots_alive, get_number_of_NULL_robots_alive)
+{
+    cr_assert_eq(get_number_of_robots_alive(NULL), 0);
+}
+
+Test(get_number_of_robots_not_dead, get_number_of_robots_not_dead_in_corewar_1)
+{
+    robot_t **robots = malloc(sizeof(robot_t *) * 5);
+    robot_t *robot1 = malloc(sizeof(robot_t));
+    robot_t *robot2 = malloc(sizeof(robot_t));
+    robot_t *robot3 = malloc(sizeof(robot_t));
+    robot_t *robot4 = malloc(sizeof(robot_t));
+
+    robot1->is_dead = true;
+    robot2->is_dead = false;
+    robot3->is_dead = true;
+    robot4->is_dead = true;
+    robots[0] = robot1;
+    robots[1] = robot2;
+    robots[2] = robot3;
+    robots[3] = robot4;
+    robots[4] = NULL;
+    cr_assert_eq(get_number_of_robots_not_dead(robots), 1);
+}
+Test(get_number_of_robots_not_dead, get_number_of_robots_not_dead_in_corewar_2)
+{
+    robot_t **robots = malloc(sizeof(robot_t *) * 5);
+    robot_t *robot1 = malloc(sizeof(robot_t));
+    robot_t *robot2 = malloc(sizeof(robot_t));
+    robot_t *robot3 = malloc(sizeof(robot_t));
+    robot_t *robot4 = malloc(sizeof(robot_t));
+
+    robot1->is_dead = true;
+    robot2->is_dead = true;
+    robot3->is_dead = true;
+    robot4->is_dead = true;
+    robots[0] = robot1;
+    robots[1] = robot2;
+    robots[2] = robot3;
+    robots[3] = robot4;
+    robots[4] = NULL;
+    cr_assert_eq(get_number_of_robots_not_dead(robots), 0);
+}
+Test(get_number_of_robots_not_dead, get_number_of_robots_not_dead_in_corewar_3)
+{
+    robot_t **robots = malloc(sizeof(robot_t *) * 5);
+    robot_t *robot1 = malloc(sizeof(robot_t));
+    robot_t *robot2 = malloc(sizeof(robot_t));
+    robot_t *robot3 = malloc(sizeof(robot_t));
+    robot_t *robot4 = malloc(sizeof(robot_t));
+
+    robot1->is_dead = false;
+    robot2->is_dead = false;
+    robot3->is_dead = false;
+    robot4->is_dead = false;
+    robots[0] = robot1;
+    robots[1] = robot2;
+    robots[2] = robot3;
+    robots[3] = robot4;
+    robots[4] = NULL;
+    cr_assert_eq(get_number_of_robots_not_dead(robots), 4);
+}
+Test(get_number_of_robots_not_dead, get_number_of_NULL_robots_not_dead)
+{
+    cr_assert_eq(get_number_of_robots_not_dead(NULL), 0);
+}
+
+Test(free_robot, free_robot_1)
+{
+    robot_t *robot = malloc(sizeof(robot_t));
+    int *registers = malloc(sizeof(int));
+
+    robot->name = my_strdup("");
+    robot->registers = registers;
+    free_robot(robot);
+}
+Test(free_robot, free_robot_2)
+{
+    robot_t *robot = malloc(sizeof(robot_t));
+    int *registers = malloc(sizeof(int));
+
+    robot->name = NULL;
+    robot->registers = registers;
+    free_robot(robot);
+}
+Test(free_robot, free_robot_3)
+{
+    robot_t *robot = malloc(sizeof(robot_t));
+    int *registers = malloc(sizeof(int));
+
+    robot->name = my_strdup("");
+    robot->registers = NULL;
+    free_robot(robot);
+}
+Test(free_robot, free_robot_4)
+{
+    robot_t *robot = malloc(sizeof(robot_t));
+    int *registers = malloc(sizeof(int));
+
+    robot->name = NULL;
+    robot->registers = NULL;
+    free_robot(robot);
+}
+Test(free_robot, free_NULL_robot)
+{
+    free_robot(NULL);
+}
+
+Test(create_robot, create_robot_with_cor_file_1)
+{
+    robot_t *robot = create_robot("tests/abel.cor", -1, -1);
+    
+    cr_assert_not_null(robot);
+}
+Test(create_robot, create_robot_with_cor_file_2)
+{
+    robot_t *robot = create_robot("tests/pdd.cor", 25, -1);
+    
+    cr_assert_not_null(robot);
+}
+Test(create_robot, create_robot_with_cor_file_3)
+{
+    robot_t *robot = create_robot("tests/bill.cor", -1, 25);
+    
+    cr_assert_not_null(robot);
+}
+Test(create_robot, create_robot_with_cor_file_4)
+{
+    robot_t *robot = create_robot("tests/tyron.cor", 983, 2938);
+    
+    cr_assert_not_null(robot);
+}
+Test(create_robot, create_robot_with_invalid_file)
+{
+    robot_t *robot = create_robot("dzqhjdiqzphqz", 0, 0);
+
+    cr_assert_null(robot);
+}
+Test(create_robot, create_robot_with_NULL_path)
+{
+    robot_t *robot = create_robot(NULL, 0, 0);
+}
+
+Test(read_instruction, read_robot_instruction_1)
+{
+    corewar_t *corewar = init_corewar();
+    robot_t **robots = malloc(sizeof(robot_t *) * 2);
+    robot_t *robot = malloc(sizeof(robot_t));
+
+    corewar->memory[0] = 1;
+    corewar->memory[1] = 0;
+    corewar->memory[2] = 0;
+    corewar->memory[3] = 0;
+    corewar->memory[4] = 1;
+    robot->is_dead = false;
+    robot->nb_cycles_to_wait = 0;
+    robot->read_index = 0;
+    robot->registers = malloc(sizeof(int));
+    robot->registers[0] = 1;
+    robots[0] = robot;
+    robots[1] = NULL;
+    corewar->robots = robots;
+    read_instruction(corewar, robot);
+    cr_assert_eq(robot->nb_cycles_to_wait, op_tab[0].nbr_cycles);
+    cr_assert_eq(robot->read_index, 5);
+}
+Test(read_instruction, read_robot_instruction_of_invalid_instruction)
+{
+    corewar_t *corewar = init_corewar();
+    robot_t *robot = malloc(sizeof(robot_t));
+
+    corewar->memory[0] = 0;
+    robot->is_dead = false;
+    robot->nb_cycles_to_wait = 0;
+    robot->read_index = 0;
+    read_instruction(corewar, robot);
+    cr_assert_eq(robot->nb_cycles_to_wait, 0);
+    cr_assert_eq(robot->read_index, 1);
+}
+Test(read_instruction, read_robot_instruction_that_must_to_wait)
+{
+    corewar_t *corewar = init_corewar();
+    robot_t *robot = malloc(sizeof(robot_t));
+
+    robot->is_dead = false;
+    robot->nb_cycles_to_wait = 5;
+    read_instruction(corewar, robot);
+    cr_assert_eq(robot->nb_cycles_to_wait, 4);
+}
+Test(read_instruction, read_robot_instruction_of_dead_robot)
+{
+    corewar_t *corewar = init_corewar();
+    robot_t *robot = malloc(sizeof(robot_t));
+
+    robot->is_dead = true;
+    read_instruction(corewar, robot);
+}
+Test(read_instruction, read_robot_instruction_with_NULL_corewar)
+{
+    robot_t *robot = malloc(sizeof(robot_t));
+
+    read_instruction(NULL, robot);
+}
+Test(read_instruction, read_robot_instruction_with_NULL_robot)
+{
+    corewar_t *corewar = init_corewar();
+
+    read_instruction(corewar, NULL);
+}
+Test(read_instruction, read_robot_instruction_with_NULL_robot_and_NULL_corewar)
+{
+    read_instruction(NULL, NULL);
+}
+
+Test(get_operation_info, get_operation_info_1)
+{
+    op_t info = get_operation_info("live");
+
+    cr_assert_eq(my_strcmp(info.mnemonique, op_tab[0].mnemonique), 0);
+}
+Test(get_operation_info, get_operation_info_2)
+{
+    op_t info = get_operation_info("lldi");
+
+    cr_assert_eq(my_strcmp(info.mnemonique, op_tab[13].mnemonique), 0);
+}
+Test(get_operation_info, get_operation_info_3)
+{
+    op_t info = get_operation_info("aff");
+
+    cr_assert_eq(my_strcmp(info.mnemonique, op_tab[15].mnemonique), 0);
+}
+Test(get_operation_info, get_operation_info_of_wrong_instruction)
+{
+    op_t info = get_operation_info("no");
+
+    cr_assert_eq(info.mnemonique, 0);
+}
+
+Test(get_movement_size_with_cbyte, get_movement_size_with_cbyte_1)
+{
+    cr_assert_eq(get_movement_size_with_cbyte(T_REG), 1);
+}
+Test(get_movement_size_with_cbyte, get_movement_size_with_cbyte_2)
+{
+    cr_assert_eq(get_movement_size_with_cbyte(T_IND), 2);
+}
+Test(get_movement_size_with_cbyte, get_movement_size_with_cbyte_3)
+{
+    cr_assert_eq(get_movement_size_with_cbyte(T_DIR), 4);
+}
+Test(get_movement_size_with_cbyte, get_movement_size_with_invalid_cbyte)
+{
+    cr_assert_eq(get_movement_size_with_cbyte(0), 0);
 }

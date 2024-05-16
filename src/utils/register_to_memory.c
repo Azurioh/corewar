@@ -12,7 +12,7 @@ void register_to_memory(corewar_t *corewar, int index, int value)
     int shift = 24;
 
     for (int i = 0; i < 4; i++) {
-        corewar->memory[index + i] = value >> shift;
+        corewar->memory[get_address(index + i)] = value >> shift;
         shift -= 8;
     }
     return;
