@@ -32,11 +32,14 @@ static int *read_and_args(unsigned char *memory, robot_t *robot,
     return arguments;
 }
 
-static bool check_and_args_are_valid(int *args, char *c_byte)
+static bool check_and_args_are_valid(int *args, char *c_byte, robot_t *robot)
 {
     for (int i = 0; i < 2; i++) {
         if (c_byte[i] == T_REG && register_is_valid(args[i]) == false) {
             return false;
+        }
+        if (c_byte[i] == T_REG) {
+            args[i] = robot->registers[args[i] - 1];
         }
     }
     if (register_is_valid(args[2]) == false) {
@@ -54,7 +57,7 @@ void and_instruction(corewar_t *corewar, robot_t *robot)
     if (!args)
         return;
     robot->carry = 0;
-    if (check_and_args_are_valid(args, c_byte) == false) {
+    if (check_and_args_are_valid(args, c_byte, robot) == false) {
         robot->read_index = get_address(robot->read_index + args[3]);
         free(c_byte);
         free(args);
