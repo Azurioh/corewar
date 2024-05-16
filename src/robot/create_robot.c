@@ -30,7 +30,7 @@ static bool load_robot_informations(robot_t *robot, char unsigned *buffer,
     robot->name = my_uns_strndup(&(buffer[4]), PROG_NAME_LENGTH);
     robot->program = my_uns_strndup(&(buffer[COMMENT_LENGTH + PROG_NAME_LENGTH
         + 16]), robot->prog_size);
-    if (robot->name == false)
+    if (!robot->name)
         return false;
     if (init_registers(robot) == false)
         return false;
@@ -53,12 +53,11 @@ robot_t *create_robot(char *filepath, int start, int number)
     unsigned char *buffer = NULL;
     int size = 0;
 
-    if (!robot) {
+    if (!robot)
         return NULL;
-    }
     size = read_file(filepath, &buffer);
     if (size == -1) {
-        free_robot(robot);
+        free(robot);
         return NULL;
     } else
         robot->prog_size = size - (COMMENT_LENGTH + PROG_NAME_LENGTH + 15);

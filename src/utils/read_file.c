@@ -13,6 +13,9 @@ int read_file(char *filepath, unsigned char **buff)
     int fd;
     size_t size;
 
+    if (!filepath) {
+        return -1;
+    }
     fd = open(filepath, O_RDONLY);
     if (fd == -1) {
         my_printf("Can't open %s\n", filepath);
