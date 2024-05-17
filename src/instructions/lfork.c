@@ -67,6 +67,7 @@ void lfork_instruction(corewar_t *corewar, robot_t *robot)
     }
     insert_new_robots_in_corewar(corewar, new_robot);
     new_read_index = robot->read_index + new_read_index;
+    robot->read_index += 3;
     new_robot->read_index = new_read_index;
     return;
 }

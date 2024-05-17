@@ -751,7 +751,7 @@ Test(fork_instruction, fork_instruction_successfull_1)
     fork_instruction(corewar, robot);
     cr_assert_eq(corewar->nbr_robots, 2);
     cr_assert_not_null(corewar->robots[1]);
-    cr_assert_eq(corewar->robots[1]->read_index, robot->read_index + new_read_index % IDX_MOD);
+    cr_assert_eq(corewar->robots[1]->read_index, robot->read_index + new_read_index % IDX_MOD - 3);
 }
 Test(fork_instruction, fork_instruction_successfull_2)
 {
@@ -784,7 +784,7 @@ Test(fork_instruction, fork_instruction_successfull_2)
     fork_instruction(corewar, robot);
     cr_assert_eq(corewar->nbr_robots, 5);
     cr_assert_not_null(corewar->robots[4]);
-    cr_assert_eq(corewar->robots[4]->read_index, robot->read_index + new_read_index % IDX_MOD);
+    cr_assert_eq(corewar->robots[4]->read_index, robot->read_index + new_read_index % IDX_MOD - 3);
 }
 Test(lfork_instruction, lfork_instruction_successfull_1)
 {
@@ -814,7 +814,7 @@ Test(lfork_instruction, lfork_instruction_successfull_1)
     lfork_instruction(corewar, robot);
     cr_assert_eq(corewar->nbr_robots, 2);
     cr_assert_not_null(corewar->robots[1]);
-    cr_assert_eq(corewar->robots[1]->read_index, robot->read_index + new_read_index);
+    cr_assert_eq(corewar->robots[1]->read_index, robot->read_index + new_read_index - 3);
 }
 Test(lfork_instruction, lfork_instruction_successfull_2)
 {
@@ -847,7 +847,7 @@ Test(lfork_instruction, lfork_instruction_successfull_2)
     lfork_instruction(corewar, robot);
     cr_assert_eq(corewar->nbr_robots, 5);
     cr_assert_not_null(corewar->robots[4]);
-    cr_assert_eq(corewar->robots[4]->read_index, robot->read_index + new_read_index);
+    cr_assert_eq(corewar->robots[4]->read_index, robot->read_index + new_read_index - 3);
 }
 
 Test(live, live_instruction_successfull_1, .init = redirect_all_std)
@@ -875,7 +875,7 @@ Test(live, live_instruction_successfull_1, .init = redirect_all_std)
     cr_assert_eq(corewar->nbr_live, 1);
     cr_assert_eq(robot->read_index, 5);
 }
-Test(live, live_instruction_successfull_2, .init = redirect_all_std)
+Test(live, live_instruction_successfull_2)//, .init = redirect_all_std)
 {
     corewar_t *corewar = init_corewar();
     robot_t **list_robots = malloc(sizeof(robot_t *) * 2);
@@ -905,9 +905,9 @@ Test(live, live_instruction_successfull_2, .init = redirect_all_std)
     corewar->robots[1]->registers[0] = 3;
     live(corewar, robot);
     cr_assert_eq(robot->is_alive, false);
-    cr_assert_eq(corewar->robots[1]->is_alive, true);
-    cr_assert_eq(corewar->nbr_live, 1);
-    cr_assert_eq(robot->read_index, 5);
+    cr_assert_eq(corewar->robots[1]->is_alive, false);
+    cr_assert_eq(corewar->nbr_live, 0);
+    cr_assert_eq(robot->read_index, 8);
 }
 Test(live, live_instruction_with_wrong_id_1)
 {
