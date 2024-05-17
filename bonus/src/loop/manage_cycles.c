@@ -18,6 +18,7 @@ static void exec_robots_instruction(corewar_t *corewar)
         corewar->nbr_cycle -= CYCLE_DELTA;
     }
     if (corewar->total_cycles == corewar->dump_nbr) {
+        endwin();
         dump_memory(corewar);
         corewar->is_dump = 1;
     }
@@ -95,6 +96,7 @@ int manage_cycles(corewar_t *corewar)
         if (corewar->is_dump == 1)
             break;
     }
+    endwin();
     display_winner(corewar);
     return 0;
 }
