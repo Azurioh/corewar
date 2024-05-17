@@ -19,7 +19,7 @@ static void display_robot_state(WINDOW *window, bool is_alive, bool is_dead)
     }
     wattron(window, DEAD_TEXT);
     if (is_dead == false) {
-        wprintw(window, "not already alive");
+        wprintw(window, "not alive");
     } else {
         wprintw(window, "dead");
     }

@@ -71,11 +71,12 @@ static void display_memory(corewar_t *corewar)
     WINDOW *window = corewar->windows[5];
 
     for (int i = 0; i < MEM_SIZE; i++) {
-        display_memory_element(corewar, read_indexes, i, window);
-            wprintw(window, " ");
         if (i % 90 == 0 && i != 0) {
             wprintw(window, "\n");
         }
+        display_memory_element(corewar, read_indexes, i, window);
+        if ((i + 1) % 90 != 0)
+            wprintw(window, " ");
     }
     wrefresh(window);
 }
