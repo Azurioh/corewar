@@ -25,14 +25,6 @@
     #define R4_MEMORY COLOR_PAIR(11)
     #define MEMORY_COLOR COLOR_PAIR(12)
 
-    #define SHOW_READ wattron(window, READ_MEMORY);
-    #define HIDE_READ wattroff(window, READ_MEMORY);
-
-    #define SHOW_TEXT display_text_color_of_robot(robots, robot->name, window);
-    #define HIDE_TEXT hide_text_color_of_robot(robots, robot->name, window);
-    #define SHOW_MEM display_highlight_of_robot(robots, robot->name, window);
-    #define HIDE_MEM hide_hightlight_of_robot(robots, robot->name, window);
-
 bool check_if_robot_is_dead(robot_t **robots, unsigned char *robot_name);
 bool check_if_robot_is_alive(robot_t **robots, unsigned char *robot_name);
 int get_nb_process(robot_t **robots, unsigned char *robot_name);

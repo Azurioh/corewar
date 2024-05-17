@@ -48,7 +48,6 @@ WINDOW **init_ncurses(void)
 
     initscr();
     start_color();
-
     init_text_colors();
     init_highlight_colors();
     windows = init_ncurses_windows();

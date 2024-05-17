@@ -70,6 +70,8 @@ static void exec_loop(corewar_t *corewar)
     for (int i = 1; i <= corewar->nbr_cycle; i++) {
         corewar->actual_cycle = i;
         exec_robots_instruction(corewar);
+            display_ncurses(corewar);
+            usleep(10000);
         if (corewar->is_dump == 1)
             return;
         corewar->total_cycles++;
@@ -88,9 +90,7 @@ int manage_cycles(corewar_t *corewar)
         }
         exec_loop(corewar);
         for (int i = 0; i < corewar->nbr_robots; i++) {
-            display_ncurses(corewar);
             update_state_of_robots(corewar->robots[i]);
-            usleep(200000);
         }
         if (corewar->is_dump == 1)
             break;

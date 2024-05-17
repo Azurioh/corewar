@@ -48,19 +48,19 @@ static void display_memory_element(corewar_t *corewar, int *read_indexes,
 
     if (memory[i].author && is_readed(corewar, read_indexes, i) == false) {
         robot = get_robot_by_name(robots, memory[i].author);
-        SHOW_MEM
+        display_highlight_of_robot(robots, robot->name, window);
     }
     if (is_readed(corewar, read_indexes, i) == true)
-        SHOW_READ
+        wattron(window, READ_MEMORY);
     if (!memory[i].author && is_readed(corewar, read_indexes, i) == false)
         wattron(window, MEMORY_COLOR);
     if (memory[i].memory < 0x10)
         wprintw(window, "0");
     wprintw(window, "%x", memory[i].memory);
     if (memory[i].author && is_readed(corewar, read_indexes, i) == false)
-        HIDE_MEM
+        hide_hightlight_of_robot(robots, robot->name, window);
     if (is_readed(corewar, read_indexes, i) == true)
-        HIDE_READ
+        wattroff(window, READ_MEMORY);
     if (!memory[i].author && is_readed(corewar, read_indexes, i) == false)
         wattroff(window, MEMORY_COLOR);
 }

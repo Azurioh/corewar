@@ -33,9 +33,9 @@ static void display_robot(robot_t **robots, robot_t *robot, WINDOW *window)
     bool is_dead = check_if_robot_is_dead(robots, robot->name);
     int nb_process = get_nb_process(robots, robot->name);
 
-    SHOW_TEXT
+    display_text_color_of_robot(robots, robot->name, window);
     wprintw(window, (char *)robot->name);
-    HIDE_TEXT
+    hide_text_color_of_robot(robots, robot->name, window);
     wprintw(window, "\n\nlive state: ");
     display_robot_state(window, is_alive, is_dead);
     wprintw(window, "nb of process: %d\n", nb_process);
