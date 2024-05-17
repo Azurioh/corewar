@@ -8,6 +8,7 @@
 
 void aff(corewar_t *corewar, robot_t *robot)
 {
+    (void) corewar;
     robot->read_index = get_address(robot->read_index + 3);
     return;
 }
