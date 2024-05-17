@@ -18,6 +18,7 @@ all:	$(NAME)
 $(NAME):	$(OBJS)
 	ar rc $(NAME) $(OBJS)
 	cp -r lib_includes my.h ../../include
+	cp -r lib_includes my.h ../../bonus/include
 	cp $(NAME) ../
 
 clean:

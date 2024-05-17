@@ -110,4 +110,5 @@ unsigned char *my_uns_strndup(unsigned char *str, int n);
 char *my_revstr(char *str);
 int my_uns_strlen(unsigned char const *str);
 unsigned char *my_uns_strdup(unsigned char const *str);
+int my_uns_strcmp(unsigned char *s1, unsigned char *s2);
 #endif /* !STR_FUNCTIONS_H_ */
