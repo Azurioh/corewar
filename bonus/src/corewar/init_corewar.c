@@ -6,6 +6,7 @@
 */
 
 #include "../../include/corewar.h"
+#include "../../include/ncurses.h"
 
 static memory_t *allocate_memory(void)
 {
@@ -35,5 +36,6 @@ corewar_t *init_corewar(void)
     corewar->nbr_cycle = CYCLE_TO_DIE;
     corewar->nbr_robots = 0;
     corewar->dump_nbr = -1;
+    corewar->windows = init_ncurses();
     return corewar;
 }
