@@ -6,8 +6,9 @@
 */
 
 #include "../../include/corewar.h"
+#include "../../include/ncurses.h"
 
-static void exec_robots_instruction(corewar_t *corewar, int cycle_tot)
+static void exec_robots_instruction(corewar_t *corewar)
 {
     for (int i = 0; i < corewar->nbr_robots; i++) {
         read_instruction(corewar, corewar->robots[i]);
@@ -16,7 +17,7 @@ static void exec_robots_instruction(corewar_t *corewar, int cycle_tot)
         corewar->nbr_live = 0;
         corewar->nbr_cycle -= CYCLE_DELTA;
     }
-    if (cycle_tot == corewar->dump_nbr) {
+    if (corewar->total_cycles == corewar->dump_nbr) {
         dump_memory(corewar);
         corewar->is_dump = 1;
     }
@@ -64,29 +65,32 @@ static void display_winner(corewar_t *corewar)
     }
 }
 
-static void exec_loop(corewar_t *corewar, int *cycle_tot)
+static void exec_loop(corewar_t *corewar)
 {
     for (int i = 1; i <= corewar->nbr_cycle; i++) {
-        exec_robots_instruction(corewar, *cycle_tot);
+        corewar->actual_cycle = i;
+        exec_robots_instruction(corewar);
         if (corewar->is_dump == 1)
             return;
-        *cycle_tot += 1;
+        corewar->total_cycles++;
     }
     return;
 }
 
 int manage_cycles(corewar_t *corewar)
 {
-    int cycle_tot = 1;
-
+    corewar->actual_cycle = 0;
+    corewar->total_cycles = 0;
     corewar->is_dump = 0;
     while (check_if_program_is_not_ended(corewar) == true) {
         for (int i = 0; i < corewar->nbr_robots; i++) {
             corewar->robots[i]->is_alive = false;
         }
-        exec_loop(corewar, &cycle_tot);
+        exec_loop(corewar);
         for (int i = 0; i < corewar->nbr_robots; i++) {
+            display_ncurses(corewar);
             update_state_of_robots(corewar->robots[i]);
+            usleep(200000);
         }
         if (corewar->is_dump == 1)
             break;
