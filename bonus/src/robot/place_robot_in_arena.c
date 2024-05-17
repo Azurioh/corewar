@@ -10,7 +10,7 @@ void place_robot(robot_t *robot, memory_t *memory)
 {
     int index = robot->start_index_in_memory;
 
-    for (unsigned int i = 0; i < robot->prog_size; i++) {
+    for (unsigned int i = 0; i < robot->prog_size - 1; i++) {
         if (index >= MEM_SIZE)
             return;
         memory[index].memory = robot->program[i];
