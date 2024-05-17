@@ -17,6 +17,7 @@
     #include <fcntl.h>
     #include <unistd.h>
     #include <stdbool.h>
+    #include <ncurses.h>
 
     #define READ_INDEX robot->read_index
     #define MEMORY corewar->memory
@@ -32,10 +33,13 @@ typedef struct corewar_s {
     robot_t *last_robot_alive;
     int carry;
     int nbr_cycle;
+    int actual_cycle;
+    int total_cycles;
     int dump_nbr;
     int nbr_robots;
     int nbr_live;
     int is_dump;
+    WINDOW **windows;
 } corewar_t;
 
 corewar_t *init_corewar(void);
