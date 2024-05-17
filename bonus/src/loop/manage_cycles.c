@@ -71,7 +71,7 @@ static void exec_loop(corewar_t *corewar)
         corewar->actual_cycle = i;
         exec_robots_instruction(corewar);
             display_ncurses(corewar);
-            // usleep(10000);
+            usleep(10000);
         if (corewar->is_dump == 1)
             return;
         corewar->total_cycles++;
