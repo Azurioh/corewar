@@ -68,6 +68,7 @@ void fork_instruction(corewar_t *corewar, robot_t *robot)
     insert_new_robots_in_corewar(corewar, new_robot);
     new_read_index = robot->read_index + new_read_index % IDX_MOD;
     robot->read_index += 3;
+    new_robot->nb_cycles_to_wait = 800;
     new_robot->read_index = new_read_index;
     return;
 }
