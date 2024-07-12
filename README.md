@@ -20,8 +20,6 @@ cd corewar
 make
 ```
 
-<br>
-
 Maintenant, pour lancer le Corewar, il suffit de lancer l'exécutable que nous venons de générer.
 
 ```bash
