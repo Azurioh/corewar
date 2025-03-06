@@ -53,8 +53,6 @@ unit_tests:	fclean all
 
 tests_run:	unit_tests
 	./unit_tests --verbose
-	gcovr --exclude tests
-	gcovr --exclude tests --branches
 
 bonus:	fclean
 	make -C bonus
